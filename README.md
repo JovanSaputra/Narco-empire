@@ -12,7 +12,6 @@
 
 > *Build your empire. Control the streets. Trust no one.*
 
-**Developed by [@JONZ_007](https://github.com/jovansaputra)**
-© 2026 • All Rights Reserved
+**© 2026 • All Rights Reserved**
 
 </div>
