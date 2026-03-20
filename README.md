@@ -6,7 +6,7 @@
 
 ---
 
-[![PLAY NOW](https://img.shields.io/badge/▶%20PLAY%20NOW-FF0000?style=for-the-badge&logoColor=white)](https://jovansaputra.github.io/NAMA-REPO/)
+[![PLAY NOW](https://jovansaputra.github.io/Narco-empire/)
 
 ---
 
