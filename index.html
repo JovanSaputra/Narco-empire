@@ -9986,7 +9986,7 @@ async function lbFetch(){
   if(!lbConfigured()) return;
   if(_lbLoading) return;
   const now = Date.now();
-  if(now - _lbLastFetch < LB_FETCH_TTL && _lbData.length) return;
+  if(now - _lbLastFetch < LB_FETCH_TTL) return;
 
   _lbLoading = true;
   renderLeaderboard();
