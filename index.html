@@ -9986,7 +9986,7 @@ async function lbFetch(){
   if(!lbConfigured()) return;
   if(_lbLoading) return;
   const now = Date.now();
-  if(now - _lbLastFetch < LB_FETCH_TTL) return;
+  if(_lbLastFetch > 0 && now - _lbLastFetch < LB_FETCH_TTL) return;
 
   _lbLoading = true;
   renderLeaderboard();
@@ -10089,7 +10089,7 @@ function renderLeaderboard(){
 
   /* Toolbar */
   const coolLeft = Math.max(0, Math.ceil((LB_SUBMIT_COOL-( Date.now()-_lbLastSubmit))/60000));
-  const canSubmit = !_lbSubmitting && !_lbLoading && !!G?.bossName;
+  const canSubmit = !_lbSubmitting && !!G?.bossName;
   const submitLbl = _lbSubmitting
     ? (EN?'SUBMITTING...':'MENGIRIM...')
     : coolLeft > 0
@@ -10122,8 +10122,8 @@ function renderLeaderboard(){
       ${EN?'Be the first to submit your score!':'Jadilah yang pertama mengirim skor!'}
     </div>`;
     el.innerHTML = h;
-    // auto-fetch on first open
-    if(!_lbLoading) lbFetch();
+    // Trigger first fetch if never fetched
+    if(!_lbLoading && _lbLastFetch === 0) lbFetch();
     return;
   }
 
