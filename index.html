@@ -9872,7 +9872,6 @@ let _lbLoading   = false;
 let _lbLastFetch = 0;
 let _lbSubmitting= false;
 let _lbLastSubmit= 0;
-let _lbError     = '';       // last error message
 const LB_FETCH_TTL    = 60000;   // re-fetch setelah 60 s
 const LB_SUBMIT_COOL  = 3600000; // submit cooldown 1 jam
 
@@ -9990,18 +9989,11 @@ async function lbFetch(){
   if(now - _lbLastFetch < LB_FETCH_TTL && _lbData.length) return;
 
   _lbLoading = true;
-  _lbError = '';
   renderLeaderboard();
 
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-    const res = await fetch(lbColURL(), { signal: controller.signal });
-    clearTimeout(timeoutId);
-    if(!res.ok){
-      const errBody = await res.text().catch(()=>'');
-      throw new Error('HTTP ' + res.status + (errBody ? ' — ' + errBody.slice(0,120) : ''));
-    }
+    const res = await fetch(lbColURL());
+    if(!res.ok) throw new Error('HTTP '+res.status);
     const json = await res.json();
     const docs = json.documents || [];
     _lbData = docs
@@ -10010,11 +10002,9 @@ async function lbFetch(){
       .sort((a,b)=> b.score - a.score)
       .slice(0, LB_CONFIG.maxEntries);
     _lbLastFetch = now;
-    _lbError = '';
   } catch(e){
-    _lbError = e.name === 'AbortError' ? 'TIMEOUT — koneksi ke Firebase gagal (>10s)' : (e.message || 'Gagal memuat');
-    console.error('[Leaderboard] lbFetch error:', e);
-    _lbLastFetch = now - LB_FETCH_TTL + 30000;
+    // keep stale data, show error
+    _lbLastFetch = now - LB_FETCH_TTL + 15000; // retry in 15s
   } finally {
     _lbLoading = false;
     renderLeaderboard();
@@ -10126,23 +10116,14 @@ function renderLeaderboard(){
 
   /* Empty state */
   if(!_lbData.length){
-    if(_lbError){
-      h += `<div class="lb-empty" style="color:var(--red2);">
-        ⚠️<br>
-        ${EN?'Failed to load leaderboard:':'Gagal memuat leaderboard:'}<br>
-        <span style="font-size:9px;color:var(--text3);word-break:break-all;">${_lbError}</span><br><br>
-        <span style="font-size:9px;">${EN?'Check browser Console (F12) for details.':'Cek Console browser (F12) untuk detail error.'}</span>
-      </div>`;
-    } else {
-      h += `<div class="lb-empty">
-        🏆<br>
-        ${EN?'No entries yet.':'Belum ada data.'}<br>
-        ${EN?'Be the first to submit your score!':'Jadilah yang pertama mengirim skor!'}
-      </div>`;
-    }
+    h += `<div class="lb-empty">
+      🏆<br>
+      ${EN?'No entries yet.':'Belum ada data.'}<br>
+      ${EN?'Be the first to submit your score!':'Jadilah yang pertama mengirim skor!'}
+    </div>`;
     el.innerHTML = h;
-    // auto-fetch on first open (jangan retry kalau ada error)
-    if(!_lbLoading && !_lbError) lbFetch();
+    // auto-fetch on first open
+    if(!_lbLoading) lbFetch();
     return;
   }
 
