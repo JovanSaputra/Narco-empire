@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NARCO EMPIRE v1.1</title>
+<title>NARCO EMPIRE v1.2</title>
 <!-- OFFLINE MODE: Google Fonts removed, using embedded system font stack -->
 <style>
 /* ── Bebas Neue replacement: condensed display font (offline safe) ── */
@@ -2033,6 +2033,50 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
 .csn-cap-bar{padding:7px 10px;border-top:1px solid var(--border);margin-top:8px;font-size:9px;color:var(--text3);letter-spacing:1px;}
 .csn-cap-track{height:3px;background:var(--bg3);border:1px solid var(--border);margin-top:4px;border-radius:2px;overflow:hidden;}
 .csn-cap-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--green));transition:width .3s;}
+/* ══ LEADERBOARD ══ */
+.lb-hdr{padding:10px 13px 8px;background:linear-gradient(180deg,#0a1a06,var(--bg1));border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.lb-hdr-title{font-family:var(--font-d);font-size:18px;color:var(--green);letter-spacing:4px;}
+.lb-hdr-sub{font-size:9px;color:var(--text3);letter-spacing:1px;margin-top:2px;}
+.lb-toolbar{display:flex;align-items:center;justify-content:space-between;padding:7px 11px;border-bottom:1px solid var(--border);gap:7px;}
+.lb-status{font-size:9px;color:var(--text3);letter-spacing:1px;flex:1;}
+.lb-status span{color:var(--gold);}
+.lb-status.ok span{color:var(--green);}
+.lb-status.err span{color:var(--red);}
+.lb-btn{padding:5px 11px;font-family:var(--font-d);font-size:10px;letter-spacing:1.5px;cursor:pointer;transition:all .15s;border:1px solid;}
+.lb-btn-submit{background:rgba(46,204,113,.1);border-color:var(--gdimG);color:var(--green);}
+.lb-btn-submit:active{background:rgba(46,204,113,.25);}
+.lb-btn-submit:disabled{opacity:.3;cursor:default;}
+.lb-btn-refresh{background:rgba(212,149,42,.08);border-color:var(--gdim);color:var(--gold);}
+.lb-btn-refresh:active{background:rgba(212,149,42,.22);}
+.lb-btn-refresh:disabled{opacity:.3;cursor:default;}
+.lb-table-wrap{overflow-x:hidden;}
+.lb-table{width:100%;border-collapse:collapse;font-size:11px;}
+.lb-table th{padding:5px 6px;text-align:left;font-size:8px;color:var(--text3);letter-spacing:1.5px;border-bottom:1px solid var(--border);background:var(--bg1);font-family:var(--font);white-space:nowrap;}
+.lb-table td{padding:6px 6px;border-bottom:1px solid rgba(90,56,24,.22);vertical-align:middle;color:var(--text);}
+.lb-table tr:hover td{background:rgba(212,149,42,.04);}
+.lb-rank-num{font-family:var(--font-d);font-size:15px;color:var(--text3);width:26px;text-align:center;}
+.lb-rank-num.top1{color:#FFD700;text-shadow:0 0 8px rgba(255,215,0,.6);}
+.lb-rank-num.top2{color:#C0C0C0;text-shadow:0 0 5px rgba(192,192,192,.4);}
+.lb-rank-num.top3{color:#CD7F32;}
+.lb-me td{background:rgba(46,204,113,.05)!important;border-left:2px solid var(--green);}
+.lb-boss{font-family:var(--font-d);font-size:12px;color:var(--white);letter-spacing:.5px;line-height:1.1;}
+.lb-cartel{font-size:9px;color:var(--text3);letter-spacing:.3px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90px;}
+.lb-score{font-family:var(--font-d);font-size:12px;color:var(--gold);}
+.lb-score.top1{color:#FFD700;}
+.lb-money{font-size:9px;color:var(--g2);}
+.lb-days{font-size:9px;color:var(--text2);}
+.lb-empty{padding:28px 14px;text-align:center;font-size:11px;color:var(--text3);letter-spacing:1px;line-height:2;}
+.lb-setup{margin:10px;padding:13px 14px;background:rgba(212,149,42,.05);border:1px solid rgba(212,149,42,.2);}
+.lb-setup-title{font-family:var(--font-d);font-size:13px;color:var(--gold);letter-spacing:2px;margin-bottom:8px;}
+.lb-setup-step{font-size:10px;color:var(--text2);line-height:2;letter-spacing:.3px;}
+.lb-setup-step b{color:var(--gold);}
+.lb-setup-step code{color:var(--red2);background:rgba(220,20,60,.08);padding:0 4px;font-family:var(--font);font-size:9px;}
+.lb-loading{display:flex;align-items:center;justify-content:center;gap:9px;padding:32px;font-size:10px;color:var(--text3);letter-spacing:2px;}
+.lb-spin{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:lbSpin .7s linear infinite;flex-shrink:0;}
+@keyframes lbSpin{to{transform:rotate(360deg)}}
+.lb-my-score{margin:8px 10px;padding:8px 12px;background:rgba(46,204,113,.06);border:1px solid rgba(46,204,113,.18);display:flex;align-items:center;justify-content:space-between;}
+.lb-my-score-lbl{font-size:9px;color:var(--text3);letter-spacing:1.5px;}
+.lb-my-score-val{font-family:var(--font-d);font-size:14px;color:var(--green);letter-spacing:1px;}
 .cst-v{font-family:var(--font-d);font-size:17px;line-height:1;}
 .cst-l{font-size:9px;color:var(--text3);letter-spacing:1px;margin-top:2px;}
 /* ══ WOUND BADGE ══ */
@@ -2338,7 +2382,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
   <div class="ld-corner br"></div>
   <!-- Top strip -->
   <div class="ld-topbar">
-    <div class="ld-topbar-l">NARCO EMPIRE · v1.1</div>
+    <div class="ld-topbar-l">NARCO EMPIRE · v1.2</div>
     <div class="ld-topbar-r"><div class="ld-topbar-dot"></div>LOADING</div>
   </div>
   <!-- Main body -->
@@ -2348,7 +2392,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
       <div class="ld-skull">💀</div>
       <div class="ld-title">NARCO</div>
       <div class="ld-subtitle">EMPIRE</div>
-      <div class="ld-ver-badge">v1.1 · CARTEL SIMULATION · 2026</div>
+      <div class="ld-ver-badge">v1.2 · CARTEL SIMULATION · 2026</div>
     </div>
     <!-- Separator -->
     <div class="ld-sep"></div>
@@ -2433,7 +2477,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
       <span class="spl-t1">NARCO</span>
       <span class="spl-t2">EMPIRE</span>
       <div class="spl-sub">BANGUN KERAJAAN KARTELMU DARI NOL</div>
-      <div class="spl-ver">v1.1 · BUILD 2026</div>
+      <div class="spl-ver">v1.2 · BUILD 2026</div>
       <div style="height:14px;"></div>
       <!-- Stats row -->
       <div class="spl-stats">
@@ -2865,6 +2909,9 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
     <div class="tab-panel" id="tab-casino">
       <div id="casino-content" style="padding-bottom:70px;"></div>
     </div>
+    <div class="tab-panel" id="tab-leaderboard">
+      <div id="lb-content" style="padding-bottom:70px;"></div>
+    </div>
   </div>
   <!-- DEA tracking strip (inside game screen, above nav) -->
   <div class="dea-strip" id="dea-strip" style="display:none;">
@@ -2918,6 +2965,10 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
   <button class="more-nav-btn" id="more-btn-casino" onclick="switchTabFromMore('casino',this)">
     <span class="more-nav-ic">🎰</span>
     <div class="more-nav-info"><div class="more-nav-lbl" id="more-lbl-casino">CASINO</div><div class="more-nav-sub" id="more-sub-casino">Slot, blackjack &amp; coin flip</div></div>
+  </button>
+  <button class="more-nav-btn" id="more-btn-leaderboard" onclick="switchTabFromMore('leaderboard',this)">
+    <span class="more-nav-ic">🏆</span>
+    <div class="more-nav-info"><div class="more-nav-lbl" id="more-lbl-leaderboard">LEADERBOARD</div><div class="more-nav-sub" id="more-sub-leaderboard">Peringkat global semua pemain</div></div>
   </button>
 </div>
 
@@ -4509,7 +4560,7 @@ function updateHUD(){
 // Tabs controlled directly by main nav: guarida, mercado, cartel, territorio
 // Tabs via more panel: arsenal, empire, ciudad
 const _mainNavTabs=['guarida','mercado','territorio'];
-const _morePanelTabs=['cartel','relasi','arsenal','empire','ciudad','casino'];
+const _morePanelTabs=['cartel','relasi','arsenal','empire','ciudad','casino','leaderboard'];
 
 function switchTab(name,btn){
   closeMorePanel();
@@ -4608,7 +4659,8 @@ function renderTab(name){
   if(name==='arsenal')   {G.shopTab=null;renderShop();}
   if(name==='empire')    {_empireTab=null;renderEmpire();}
   if(name==='ciudad')    renderCiudad();
-  if(name==='casino')    renderCasino();
+  if(name==='casino')      renderCasino();
+  if(name==='leaderboard') renderLeaderboard();
 }
 function renderAll(){
   updateHUD();
@@ -4621,6 +4673,7 @@ function renderAll(){
   renderEmpire();
   renderCiudad();
   renderCasino();
+  renderLeaderboard();
 }
 
 // ── HOME ──────────────────────────────────────────
@@ -7850,8 +7903,8 @@ function openSettings(fromGame) {
   if (ctxSub) {
     const EN = window.NE_LANG === 'en';
     ctxSub.textContent = _fromGame
-      ? ('NARCO EMPIRE v1.1 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
-      : 'NARCO EMPIRE v1.1';
+      ? ('NARCO EMPIRE v1.2 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
+      : 'NARCO EMPIRE v1.2';
   }
   document.getElementById('scr-settings').classList.add('on');
 }
@@ -9799,6 +9852,357 @@ function casinoCoin(){
     renderCasino();
   },750);
 }
+/* ══════════════════════════════════════════════════════════════
+   LEADERBOARD MODULE — Firebase Firestore REST API
+   Setup: https://console.firebase.google.com
+   1. Create project → Firestore Database → Start in test mode
+   2. Project Settings → Web App → copy projectId & apiKey
+   3. Fill LB_CONFIG below, deploy, done.
+══════════════════════════════════════════════════════════════ */
+const LB_CONFIG = {
+  projectId : '',   // ← isi: 'your-firebase-project-id'
+  apiKey    : '',   // ← isi: 'AIzaSy...'
+  collection: 'narco_leaderboard',
+  maxEntries: 100,
+};
+
+/* ── internal state ── */
+let _lbData      = [];       // cached board entries
+let _lbLoading   = false;
+let _lbLastFetch = 0;
+let _lbSubmitting= false;
+let _lbLastSubmit= 0;
+const LB_FETCH_TTL    = 60000;   // re-fetch setelah 60 s
+const LB_SUBMIT_COOL  = 3600000; // submit cooldown 1 jam
+
+/* ── player UID — generated once, stored in localStorage ── */
+function lbGetUID(){
+  let uid = localStorage.getItem('narco_player_uid');
+  if(!uid){
+    uid = 'p_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,8);
+    localStorage.setItem('narco_player_uid', uid);
+  }
+  return uid;
+}
+
+/* ── score formula ── */
+function lbScore(){
+  const terr = Object.values(G.territory||{}).filter(v=>v===2).length;
+  return Math.floor(
+    Math.max(0, G.money||0)
+    + terr * 50000
+    + (G.rep||0) * 10000
+    + (G.day||1) * 500
+  );
+}
+
+/* ── configured check ── */
+function lbConfigured(){ return !!(LB_CONFIG.projectId && LB_CONFIG.apiKey); }
+
+/* ── Firestore REST URL builders ── */
+function lbDocURL(uid){
+  return `https://firestore.googleapis.com/v1/projects/${LB_CONFIG.projectId}/databases/(default)/documents/${LB_CONFIG.collection}/${uid}?key=${LB_CONFIG.apiKey}`;
+}
+function lbColURL(){
+  return `https://firestore.googleapis.com/v1/projects/${LB_CONFIG.projectId}/databases/(default)/documents/${LB_CONFIG.collection}?key=${LB_CONFIG.apiKey}&pageSize=${LB_CONFIG.maxEntries}&orderBy=score%20desc`;
+}
+
+/* ── Firestore field encoders/decoders ── */
+function lbEncode(obj){
+  const fields = {};
+  Object.entries(obj).forEach(([k,v])=>{
+    if(typeof v === 'number') fields[k] = {integerValue: String(Math.round(v))};
+    else fields[k] = {stringValue: String(v)};
+  });
+  return {fields};
+}
+function lbDecodeDoc(doc){
+  if(!doc||!doc.fields) return null;
+  const out = {};
+  Object.entries(doc.fields).forEach(([k,v])=>{
+    if(v.integerValue !== undefined) out[k] = Number(v.integerValue);
+    else if(v.doubleValue !== undefined) out[k] = Number(v.doubleValue);
+    else out[k] = v.stringValue || '';
+  });
+  // derive uid from document name
+  out._uid = (doc.name||'').split('/').pop();
+  return out;
+}
+
+/* ── SUBMIT ── */
+async function lbSubmit(){
+  if(!lbConfigured()) return;
+  if(_lbSubmitting) return;
+  const now = Date.now();
+  if(now - _lbLastSubmit < LB_SUBMIT_COOL){
+    const remaining = Math.ceil((LB_SUBMIT_COOL-(now-_lbLastSubmit))/60000);
+    toast(`⏳ Cooldown ${remaining} menit lagi`, 'bad'); return;
+  }
+  if(!G||!G.bossName){ toast('Mulai game dulu!','bad'); return; }
+
+  _lbSubmitting = true;
+  renderLeaderboard();
+
+  const EN = window.NE_LANG === 'en';
+  const rank = getRank();
+  const terr = Object.values(G.territory||{}).filter(v=>v===2).length;
+  const payload = lbEncode({
+    bossName  : G.bossName   || 'El Boss',
+    cartelName: G.cartelName || 'Los Desconocidos',
+    rankName  : EN ? (rank.en||rank.name) : rank.name,
+    rankIcon  : rank.icon || '🌿',
+    money     : Math.max(0, Math.floor(G.money||0)),
+    territories: terr,
+    days      : G.day || 1,
+    rep       : G.rep || 0,
+    score     : lbScore(),
+    version   : typeof GAME_VERSION!=='undefined' ? GAME_VERSION : '1.2',
+    updatedAt : now,
+  });
+
+  try {
+    const res = await fetch(lbDocURL(lbGetUID()), {
+      method : 'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body   : JSON.stringify(payload),
+    });
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    _lbLastSubmit = now;
+    localStorage.setItem('narco_lb_last_submit', String(now));
+    toast(EN ? '🏆 Score submitted!' : '🏆 Skor berhasil dikirim!', 'good');
+    // Force refresh after submit
+    _lbLastFetch = 0;
+    await lbFetch();
+  } catch(e){
+    toast(EN ? '❌ Submit failed. Check connection.' : '❌ Gagal kirim. Cek koneksi.', 'bad');
+  } finally {
+    _lbSubmitting = false;
+    renderLeaderboard();
+  }
+}
+
+/* ── FETCH ── */
+async function lbFetch(){
+  if(!lbConfigured()) return;
+  if(_lbLoading) return;
+  const now = Date.now();
+  if(now - _lbLastFetch < LB_FETCH_TTL && _lbData.length) return;
+
+  _lbLoading = true;
+  renderLeaderboard();
+
+  try {
+    const res = await fetch(lbColURL());
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const json = await res.json();
+    const docs = json.documents || [];
+    _lbData = docs
+      .map(lbDecodeDoc)
+      .filter(Boolean)
+      .sort((a,b)=> b.score - a.score)
+      .slice(0, LB_CONFIG.maxEntries);
+    _lbLastFetch = now;
+  } catch(e){
+    // keep stale data, show error
+    _lbLastFetch = now - LB_FETCH_TTL + 15000; // retry in 15s
+  } finally {
+    _lbLoading = false;
+    renderLeaderboard();
+  }
+}
+
+/* ── RENDER ── */
+function renderLeaderboard(){
+  const el = document.getElementById('lb-content');
+  if(!el) return;
+  const EN = window.NE_LANG === 'en';
+  const myUID = lbGetUID();
+  const myScore = lbScore();
+  const configured = lbConfigured();
+
+  // Restore last submit time from localStorage
+  if(!_lbLastSubmit){
+    _lbLastSubmit = Number(localStorage.getItem('narco_lb_last_submit')||0);
+  }
+
+  let h = '';
+
+  /* Header */
+  h += `<div class="lb-hdr">
+    <div>
+      <div class="lb-hdr-title">🏆 LEADERBOARD</div>
+      <div class="lb-hdr-sub">${EN?'Global ranking — all players':'Peringkat global — semua pemain'}</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-family:var(--font-d);font-size:11px;color:var(--text3);letter-spacing:1px;">${_lbData.length ? _lbData.length+' '+( EN?'players':'pemain') : ''}</div>
+    </div>
+  </div>`;
+
+  /* Not configured → setup guide */
+  if(!configured){
+    h += `<div class="lb-setup">
+      <div class="lb-setup-title">⚙ ${EN?'SETUP REQUIRED':'SETUP DIPERLUKAN'}</div>
+      <div class="lb-setup-step">
+        ${EN
+          ? `Leaderboard uses <b>Firebase Firestore</b> (free). Follow these steps:<br>
+             <b>1.</b> Go to <b>console.firebase.google.com</b> → Create project<br>
+             <b>2.</b> Firestore Database → <b>Create database</b> → Test mode<br>
+             <b>3.</b> Project Settings → Your apps → Add Web App → copy keys<br>
+             <b>4.</b> In this file, find <code>LB_CONFIG</code> and fill:<br>
+             &nbsp;&nbsp;<code>projectId: 'your-project-id'</code><br>
+             &nbsp;&nbsp;<code>apiKey: 'AIzaSy...'</code><br>
+             <b>5.</b> In Firestore → Rules, paste:<br>
+             &nbsp;&nbsp;<code>allow read: if true;</code><br>
+             &nbsp;&nbsp;<code>allow write: if request.resource.data.keys().hasAll(['score','updatedAt']);</code><br>
+             <b>6.</b> Deploy → Leaderboard goes live for all players!`
+          : `Leaderboard menggunakan <b>Firebase Firestore</b> (gratis). Ikuti langkah ini:<br>
+             <b>1.</b> Buka <b>console.firebase.google.com</b> → Buat project<br>
+             <b>2.</b> Firestore Database → <b>Buat database</b> → Mode test<br>
+             <b>3.</b> Project Settings → Your apps → Tambah Web App → salin keys<br>
+             <b>4.</b> Di file ini, cari <code>LB_CONFIG</code> dan isi:<br>
+             &nbsp;&nbsp;<code>projectId: 'your-project-id'</code><br>
+             &nbsp;&nbsp;<code>apiKey: 'AIzaSy...'</code><br>
+             <b>5.</b> Di Firestore → Rules, paste:<br>
+             &nbsp;&nbsp;<code>allow read: if true;</code><br>
+             &nbsp;&nbsp;<code>allow write: if request.resource.data.keys().hasAll(['score','updatedAt']);</code><br>
+             <b>6.</b> Deploy → Leaderboard langsung aktif untuk semua pemain!`
+        }
+      </div>
+    </div>
+    <div style="padding:10px 10px;font-size:9px;color:var(--text3);text-align:center;letter-spacing:1px;line-height:2;">
+      ${EN?'💡 Firestore free tier: 50K reads/day · 20K writes/day — more than enough.':'💡 Firestore free tier: 50K baca/hari · 20K tulis/hari — lebih dari cukup.'}
+    </div>`;
+    el.innerHTML = h;
+    return;
+  }
+
+  /* My current score */
+  h += `<div class="lb-my-score">
+    <div>
+      <div class="lb-my-score-lbl">${EN?'YOUR SCORE':'SKOR KAMU'}</div>
+      <div style="font-size:9px;color:var(--text3);letter-spacing:.5px;margin-top:2px;">
+        ${EN?'Cash + Territories + Rep + Days':'Uang + Wilayah + Rep + Hari'}
+      </div>
+    </div>
+    <div class="lb-my-score-val">${_fmtScore(myScore)}</div>
+  </div>`;
+
+  /* Toolbar */
+  const coolLeft = Math.max(0, Math.ceil((LB_SUBMIT_COOL-( Date.now()-_lbLastSubmit))/60000));
+  const canSubmit = !_lbSubmitting && !_lbLoading && !!G?.bossName;
+  const submitLbl = _lbSubmitting
+    ? (EN?'SUBMITTING...':'MENGIRIM...')
+    : coolLeft > 0
+      ? (EN?`SUBMITTED (${coolLeft}m)`:`TERKIRIM (${coolLeft}m)`)
+      : (EN?'⬆ SUBMIT SCORE':'⬆ KIRIM SKOR');
+  const canRefresh = !_lbLoading && !_lbSubmitting;
+  const ago = _lbLastFetch ? _fmtAgo(_lbLastFetch, EN) : (EN?'never':'belum pernah');
+  h += `<div class="lb-toolbar">
+    <div class="lb-status${_lbData.length?' ok':''}">${EN?'Updated':'Diperbarui'}: <span>${ago}</span></div>
+    <button class="lb-btn lb-btn-refresh" ${canRefresh?'':'disabled'} onclick="lbFetch()">
+      ${_lbLoading?'<span class="lb-spin"></span>':'↻'} ${EN?'REFRESH':'REFRESH'}
+    </button>
+    <button class="lb-btn lb-btn-submit" ${(canSubmit&&coolLeft===0)?'':'disabled'} onclick="lbSubmit()">
+      ${submitLbl}
+    </button>
+  </div>`;
+
+  /* Loading spinner */
+  if(_lbLoading && !_lbData.length){
+    h += `<div class="lb-loading"><div class="lb-spin"></div>${EN?'LOADING RANKINGS...':'MEMUAT PERINGKAT...'}</div>`;
+    el.innerHTML = h;
+    return;
+  }
+
+  /* Empty state */
+  if(!_lbData.length){
+    h += `<div class="lb-empty">
+      🏆<br>
+      ${EN?'No entries yet.':'Belum ada data.'}<br>
+      ${EN?'Be the first to submit your score!':'Jadilah yang pertama mengirim skor!'}
+    </div>`;
+    el.innerHTML = h;
+    // auto-fetch on first open
+    if(!_lbLoading) lbFetch();
+    return;
+  }
+
+  /* Table */
+  h += `<div class="lb-table-wrap"><table class="lb-table">
+    <thead><tr>
+      <th>#</th>
+      <th>${EN?'BOSS':'BOSS'}</th>
+      <th>${EN?'SCORE':'SKOR'}</th>
+      <th>$</th>
+      <th>🗺</th>
+      <th>${EN?'DAY':'HARI'}</th>
+    </tr></thead><tbody>`;
+
+  let myRank = -1;
+  _lbData.forEach((entry, i)=>{
+    const isMe = entry._uid === myUID;
+    if(isMe) myRank = i+1;
+    const numCls = i===0?'top1':i===1?'top2':i===2?'top3':'';
+    const numIcon = i===0?'🥇':i===1?'🥈':i===2?'🥉':String(i+1);
+    h += `<tr${isMe?' class="lb-me"':''}>
+      <td><div class="lb-rank-num ${numCls}">${numIcon}</div></td>
+      <td>
+        <div class="lb-boss">${_escHtml(entry.rankIcon||'🌿')} ${_escHtml(entry.bossName||'—')}</div>
+        <div class="lb-cartel">${_escHtml(entry.cartelName||'—')}</div>
+      </td>
+      <td><div class="lb-score${i===0?' top1':''}">${_fmtScore(entry.score||0)}</div></td>
+      <td><div class="lb-money">${_fmtCompact(entry.money||0)}</div></td>
+      <td><div class="lb-days" style="color:var(--text2);">${entry.territories||0}</div></td>
+      <td><div class="lb-days">${entry.days||0}</div></td>
+    </tr>`;
+  });
+
+  h += `</tbody></table></div>`;
+
+  /* My rank callout if not in visible range */
+  if(myRank > 0){
+    h += `<div style="padding:6px 11px;font-size:9px;color:var(--green);letter-spacing:1px;border-top:1px solid var(--border);">
+      ${EN?`Your rank: #${myRank} of ${_lbData.length}`:`Peringkatmu: #${myRank} dari ${_lbData.length}`}
+    </div>`;
+  }
+
+  /* Score breakdown hint */
+  h += `<div style="padding:7px 11px;font-size:9px;color:var(--text3);letter-spacing:.5px;border-top:1px solid var(--border);line-height:1.8;">
+    ${EN
+      ? '📊 Score = Cash + (Territories×50K) + (Rep×10K) + (Days×500)'
+      : '📊 Skor = Uang + (Wilayah×50K) + (Rep×10K) + (Hari×500)'}
+  </div>`;
+
+  el.innerHTML = h;
+
+  // Auto-fetch if stale
+  if(Date.now() - _lbLastFetch > LB_FETCH_TTL) lbFetch();
+}
+
+/* ── tiny helpers ── */
+function _fmtScore(n){
+  if(n>=1e9)return(n/1e9).toFixed(2)+'B';
+  if(n>=1e6)return(n/1e6).toFixed(2)+'M';
+  if(n>=1e3)return(n/1e3).toFixed(1)+'K';
+  return String(Math.round(n));
+}
+function _fmtCompact(n){
+  if(n>=1e6)return'$'+(n/1e6).toFixed(1)+'M';
+  if(n>=1e3)return'$'+(n/1e3).toFixed(0)+'K';
+  return'$'+Math.round(n);
+}
+function _fmtAgo(ts, EN){
+  const s = Math.floor((Date.now()-ts)/1000);
+  if(s<10) return EN?'just now':'baru saja';
+  if(s<60) return s+'s ago';
+  if(s<3600) return Math.floor(s/60)+(EN?'m ago':'m lalu');
+  return Math.floor(s/3600)+(EN?'h ago':'j lalu');
+}
+function _escHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+
 function visitCiudad(locId, actId){
   const EN = window.NE_LANG === 'en';
   if(G.actionsLeft<=0){toast(t('no_slot'),'bad');return;}
@@ -13036,8 +13440,8 @@ window.applyLangToDOM = function(){
     const fromGame = (typeof _settingsFromGame !== 'undefined') && _settingsFromGame;
     if(ingame) ingame.style.display = fromGame ? '' : 'none';
     if(ctxSub) ctxSub.textContent = fromGame
-      ? ('NARCO EMPIRE v1.1 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
-      : 'NARCO EMPIRE v1.1';
+      ? ('NARCO EMPIRE v1.2 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
+      : 'NARCO EMPIRE v1.2';
   }
 };
 
@@ -13207,7 +13611,7 @@ window.addLog = function(msg, type){
     <div class="slot-panel-hdr">
       <div>
         <div class="slot-panel-hdr-t">⚙ <span data-t="s_title">PENGATURAN</span></div>
-        <div class="slot-panel-hdr-sub" id="settings-ctx-sub">NARCO EMPIRE v1.1</div>
+        <div class="slot-panel-hdr-sub" id="settings-ctx-sub">NARCO EMPIRE v1.2</div>
       </div>
       <button class="slot-close-btn" onclick="closeSettings()">✕ <span data-t="close">TUTUP</span></button>
     </div>
@@ -13254,7 +13658,7 @@ window.addLog = function(msg, type){
       <div class="settings-title">ℹ <span data-t="s_info_title">INFORMASI</span></div>
       <div class="settings-row">
         <div><div class="settings-lbl" data-t="s_version_lbl">Versi Game</div></div>
-        <span style="font-family:var(--font-d);font-size:12px;color:var(--gold);" id="ne-settings-ver-text">v1.1</span>
+        <span style="font-family:var(--font-d);font-size:12px;color:var(--gold);" id="ne-settings-ver-text">v1.2</span>
       </div>
       <div class="settings-row" id="ne-settings-upd-row">
         <div><div class="settings-lbl">Status Update</div></div>
@@ -15009,7 +15413,7 @@ window.openSettings=function(fromGame){
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    KONFIGURASI — HANYA EDIT BAGIAN INI
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-const GAME_VERSION      = '1.1.0';
+const GAME_VERSION      = '1.2.0';
 const VERSION_MANIFEST_URL =
   'https://raw.githubusercontent.com/JovanSaputra/Narco-empire/main/version.json';
 /*

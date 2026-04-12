@@ -1,7 +1,7 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "url": "https://raw.githubusercontent.com/JovanSaputra/Narco-empire/main/narco_empire_offline.html",
-  "changelog": "v1.1.0 — Casino: Slot Machine, Blackjack & Coin Flip di menu Other",
+  "changelog": "v1.2.0 — Global Leaderboard: submit & lihat peringkat semua pemain via Firebase",
   "countdown": 5,
   "mandatory": false
 }
