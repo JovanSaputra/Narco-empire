@@ -2,8 +2,33 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>NARCO EMPIRE v1.2</title>
+
+<!-- ══ PWA MANIFEST ══ -->
+<link rel="manifest" href="manifest.json">
+
+<!-- ══ THEME & MOBILE APP META ══ -->
+<meta name="theme-color" content="#8a0818">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Narco Empire">
+<meta name="description" content="Bangun kerajaan kartelmu dari nol. Game simulasi strategi kartel.">
+
+<!-- ══ iOS / APPLE ══ -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Narco Empire">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+
+<!-- ══ WINDOWS / MS ══ -->
+<meta name="msapplication-TileImage" content="icon-512.png">
+<meta name="msapplication-TileColor" content="#8a0818">
+<meta name="msapplication-navbutton-color" content="#8a0818">
+
+<!-- ══ FAVICON ══ -->
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <!-- OFFLINE MODE: Google Fonts removed, using embedded system font stack -->
 <style>
 /* ── Bebas Neue replacement: condensed display font (offline safe) ── */
@@ -266,6 +291,11 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
 /* BUTTONS */
 /* .btn-a — canonical single definition (merged from two duplicate rules) */
 .btn-a{width:100%;padding:13px;background:linear-gradient(180deg,#e01a3a 0%,#8a0818 100%);color:var(--white);font-family:var(--font-d);font-size:20px;letter-spacing:3px;border:1px solid var(--red);box-shadow:0 0 14px rgba(220,20,60,.3),inset 0 1px 0 rgba(255,255,255,.1);cursor:pointer;transition:all .15s;position:relative;overflow:hidden;}
+/* ── PWA Install Button ── */
+#btn-pwa-install{width:100%;padding:11px;background:linear-gradient(180deg,rgba(212,149,42,.22) 0%,rgba(212,149,42,.08) 100%);color:var(--gold);font-family:var(--font-d);font-size:16px;letter-spacing:2px;border:1px solid rgba(212,149,42,.45);box-shadow:0 0 10px rgba(212,149,42,.15);cursor:pointer;transition:all .2s;display:none;align-items:center;justify-content:center;gap:8px;}
+#btn-pwa-install:hover{background:linear-gradient(180deg,rgba(212,149,42,.32) 0%,rgba(212,149,42,.15) 100%);}
+#btn-pwa-install.visible{display:flex;}
+#pwa-ios-tip{display:none;padding:9px 12px;background:rgba(212,149,42,.07);border:1px solid rgba(212,149,42,.2);color:rgba(212,149,42,.8);font-size:10px;letter-spacing:1px;text-align:center;line-height:1.7;}
 .btn-a::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);transition:left .4s;}
 .btn-a:hover::before{left:100%;}
 .btn-a:active{transform:scale(.97);}
@@ -2504,6 +2534,9 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
           <button class="btn-c" onclick="openSettings()">⚙ SETTING</button>
         </div>
         <button class="spl-guide-btn" onclick="show('scr-guide')">📖 PANDUAN &amp; TUTORIAL LENGKAP</button>
+        <!-- PWA INSTALL BUTTON -->
+        <button id="btn-pwa-install" onclick="pwaInstall()">📲 INSTALL GAME</button>
+        <div id="pwa-ios-tip">📲 INSTALL: tap <b>⬆ Share</b> lalu <b>Add to Home Screen</b></div>
         <button class="btn-b" onclick="requestFS()" id="btn-fs" style="font-size:9px;letter-spacing:1px;opacity:.6;padding:8px;">⛶ LAYAR PENUH</button>
       </div>
       <div style="height:4px;"></div>
@@ -15691,5 +15724,121 @@ window.NarcoVersionCheck = {
 </div>
 
 </div><!-- /#app-shell -->
+
+<script>
+/* ═══════════════════════════════════════════════════
+   NARCO EMPIRE — PWA Install Logic
+═══════════════════════════════════════════════════ */
+(function(){
+
+  /* ── Deteksi iOS ── */
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+  const isInStandaloneMode = () =>
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true ||
+    document.referrer.includes('android-app://');
+
+  /* ── Elemen tombol ── */
+  const btnInstall = document.getElementById('btn-pwa-install');
+  const iosTip     = document.getElementById('pwa-ios-tip');
+
+  /* ── Cek apakah sudah installed ── */
+  function checkInstalled(){
+    if(isInStandaloneMode()) return true;
+    /* Cek via localStorage kalau user dismiss atau sudah install */
+    return localStorage.getItem('ne_pwa_installed') === '1';
+  }
+
+  /* ── Tampilkan tombol jika belum install ── */
+  function showInstallUI(){
+    if(checkInstalled()) return; /* sudah installed, sembunyikan */
+
+    if(isIOS){
+      /* iOS: tidak support beforeinstallprompt, tampilkan tip manual */
+      if(iosTip) iosTip.style.display = 'block';
+    } else {
+      /* Android / Desktop: tunggu event beforeinstallprompt */
+    }
+  }
+
+  /* ── Simpan deferredPrompt dari browser ── */
+  let _deferredPrompt = null;
+
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault();
+    _deferredPrompt = e;
+    /* Hanya tampilkan kalau belum installed */
+    if(!checkInstalled() && btnInstall){
+      btnInstall.classList.add('visible');
+    }
+  });
+
+  /* ── Tombol install diklik ── */
+  window.pwaInstall = async function(){
+    if(!_deferredPrompt) return;
+    _deferredPrompt.prompt();
+    const { outcome } = await _deferredPrompt.userChoice;
+    if(outcome === 'accepted'){
+      localStorage.setItem('ne_pwa_installed', '1');
+      if(btnInstall) btnInstall.classList.remove('visible');
+    }
+    _deferredPrompt = null;
+  };
+
+  /* ── Event: berhasil diinstall ── */
+  window.addEventListener('appinstalled', function(){
+    localStorage.setItem('ne_pwa_installed', '1');
+    if(btnInstall) btnInstall.classList.remove('visible');
+    if(iosTip)     iosTip.style.display = 'none';
+    /* Toast notif */
+    if(typeof toast === 'function'){
+      toast('📲 Narco Empire berhasil diinstall!', 'good');
+    }
+    _deferredPrompt = null;
+  });
+
+  /* ── Kalau dibuka dalam mode standalone, sembunyikan tombol ── */
+  window.matchMedia('(display-mode: standalone)').addEventListener('change', function(e){
+    if(e.matches){
+      localStorage.setItem('ne_pwa_installed', '1');
+      if(btnInstall) btnInstall.classList.remove('visible');
+      if(iosTip)     iosTip.style.display = 'none';
+    }
+  });
+
+  /* ── Register Service Worker ── */
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => {
+          console.log('[NE] Service Worker registered:', reg.scope);
+          /* Cek update SW saat game update */
+          reg.addEventListener('updatefound', () => {
+            const newSW = reg.installing;
+            newSW.addEventListener('statechange', () => {
+              if(newSW.state === 'installed' && navigator.serviceWorker.controller){
+                console.log('[NE] Update SW tersedia');
+              }
+            });
+          });
+        })
+        .catch(err => console.warn('[NE] SW failed:', err));
+    });
+  }
+
+  /* ── Init on load ── */
+  document.addEventListener('DOMContentLoaded', showInstallUI);
+  /* Juga cek saat splash ditampilkan */
+  const _origShow = window.show;
+  if(typeof _origShow === 'function'){
+    window.show = function(id){
+      _origShow(id);
+      if(id === 'scr-splash') showInstallUI();
+    };
+  }
+
+})();
+</script>
+
 </body>
 </html>
