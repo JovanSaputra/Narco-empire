@@ -1968,15 +1968,48 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
 .csn-body{padding:10px;}
 .csn-info{font-size:10px;color:var(--text3);letter-spacing:.8px;margin-bottom:8px;line-height:1.7;padding:7px 10px;background:rgba(0,0,0,.2);border:1px solid rgba(90,56,24,.3);}
 .slot-reels{display:flex;justify-content:center;gap:8px;margin:12px 0;}
-.slot-reel{width:66px;height:70px;background:var(--bg2);border:2px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:34px;transition:all .3s;}
-.slot-reel.spin{animation:slotSpin .45s ease-out;}
-@keyframes slotSpin{0%{transform:translateY(-18px);opacity:0}60%{opacity:.6}100%{transform:translateY(0);opacity:1}}
-.slot-reel.win{border-color:var(--gold);box-shadow:0 0 14px rgba(212,149,42,.55);}
+.slot-reel{width:66px;height:70px;background:var(--bg2);border:2px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:34px;transition:border-color .3s,box-shadow .3s;}
+/* Spinning state: rapid blur-scroll */
+.slot-reel.spinning{border-color:rgba(212,149,42,.5);box-shadow:0 0 10px rgba(212,149,42,.3);animation:slotBlur .12s linear infinite;}
+@keyframes slotBlur{0%{transform:translateY(0)}25%{transform:translateY(6px)}75%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+/* Win glow */
+.slot-reel.win{border-color:var(--gold);box-shadow:0 0 18px rgba(212,149,42,.7);animation:reelWin .4s ease-out;}
+@keyframes reelWin{0%{transform:scale(1)}40%{transform:scale(1.12)}100%{transform:scale(1)}}
+/* Staggered settle */
+.slot-reel.settle{animation:slotSettle .3s cubic-bezier(.22,.68,0,1.2);}
+@keyframes slotSettle{0%{transform:translateY(-14px);opacity:0}100%{transform:translateY(0);opacity:1}}
+/* BJ card animations */
+.bj-card.deal-in{animation:bjDealIn .28s cubic-bezier(.22,.68,0,1.2);}
+@keyframes bjDealIn{0%{transform:translateY(-28px) scale(.7);opacity:0}100%{transform:translateY(0) scale(1);opacity:1}}
+/* Coin flip */
+@keyframes coinSpin3D{
+  0%  {transform:rotateY(0deg)   scaleX(1);}
+  24% {transform:rotateY(80deg)  scaleX(0.15);}
+  25% {transform:rotateY(90deg)  scaleX(0);}
+  26% {transform:rotateY(100deg) scaleX(0.15);}
+  49% {transform:rotateY(170deg) scaleX(1);}
+  50% {transform:rotateY(180deg) scaleX(1);}
+  74% {transform:rotateY(260deg) scaleX(0.15);}
+  75% {transform:rotateY(270deg) scaleX(0);}
+  76% {transform:rotateY(280deg) scaleX(0.15);}
+  100%{transform:rotateY(360deg) scaleX(1);}
+}
+.coin.flipping{animation:coinSpin3D .7s ease-in-out forwards;}
+/* Result flash-in */
+.csn-result.flash-in{animation:resultFlash .35s ease-out;}
+@keyframes resultFlash{0%{transform:scale(.9);opacity:0}60%{transform:scale(1.04)}100%{transform:scale(1);opacity:1}}
 .csn-bet-row{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin:6px 0;}
 .csn-bet-btn{padding:5px 9px;background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-family:var(--font);font-size:11px;cursor:pointer;transition:all .15s;border-radius:2px;}
 .csn-bet-btn.sel{border-color:var(--gold);color:var(--gold);background:rgba(212,149,42,.08);}
 .csn-bet-btn:disabled{opacity:.3;cursor:default;}
 .csn-bet-btn:not(:disabled):active{background:rgba(212,149,42,.18);}
+/* Custom bet row */
+.csn-custom-row{display:flex;align-items:center;gap:6px;margin:5px 0 2px;padding:5px 7px;background:var(--bg2);border:1px solid rgba(90,56,24,.4);}
+.csn-custom-lbl{font-size:9px;color:var(--text3);letter-spacing:1.5px;flex-shrink:0;}
+.csn-custom-inp{flex:1;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--white);font-family:var(--font);font-size:13px;text-align:center;padding:2px 4px;outline:none;min-width:0;}
+.csn-custom-inp:focus{border-bottom-color:var(--gold);}
+.csn-custom-set{padding:3px 10px;background:rgba(212,149,42,.12);border:1px solid var(--gdim);color:var(--gold);font-family:var(--font);font-size:10px;letter-spacing:1px;cursor:pointer;}
+.csn-custom-set:active{background:rgba(212,149,42,.3);}
 .csn-action-btn{width:100%;padding:12px;margin-top:6px;font-family:var(--font-d);font-size:17px;letter-spacing:3px;background:linear-gradient(180deg,#d4952a,#7a5210);color:#fff;border:1px solid var(--gold);cursor:pointer;transition:all .15s;box-shadow:0 0 10px rgba(212,149,42,.25);}
 .csn-action-btn:active{transform:scale(.97);}
 .csn-action-btn:disabled{opacity:.35;cursor:default;transform:none;background:var(--bg3);box-shadow:none;}
@@ -2305,7 +2338,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
   <div class="ld-corner br"></div>
   <!-- Top strip -->
   <div class="ld-topbar">
-    <div class="ld-topbar-l">NARCO EMPIRE · v1.0</div>
+    <div class="ld-topbar-l">NARCO EMPIRE · v1.1</div>
     <div class="ld-topbar-r"><div class="ld-topbar-dot"></div>LOADING</div>
   </div>
   <!-- Main body -->
@@ -2315,7 +2348,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
       <div class="ld-skull">💀</div>
       <div class="ld-title">NARCO</div>
       <div class="ld-subtitle">EMPIRE</div>
-      <div class="ld-ver-badge">v1.0 · CARTEL SIMULATION · 2026</div>
+      <div class="ld-ver-badge">v1.1 · CARTEL SIMULATION · 2026</div>
     </div>
     <!-- Separator -->
     <div class="ld-sep"></div>
@@ -2400,7 +2433,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
       <span class="spl-t1">NARCO</span>
       <span class="spl-t2">EMPIRE</span>
       <div class="spl-sub">BANGUN KERAJAAN KARTELMU DARI NOL</div>
-      <div class="spl-ver">v1.0 · BUILD 2026</div>
+      <div class="spl-ver">v1.1 · BUILD 2026</div>
       <div style="height:14px;"></div>
       <!-- Stats row -->
       <div class="spl-stats">
@@ -7817,8 +7850,8 @@ function openSettings(fromGame) {
   if (ctxSub) {
     const EN = window.NE_LANG === 'en';
     ctxSub.textContent = _fromGame
-      ? ('NARCO EMPIRE v1.0 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
-      : 'NARCO EMPIRE v1.0';
+      ? ('NARCO EMPIRE v1.1 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
+      : 'NARCO EMPIRE v1.1';
   }
   document.getElementById('scr-settings').classList.add('on');
 }
@@ -9333,14 +9366,17 @@ function renderCiudad(){
   el.innerHTML=html;
 }
 /* ══════════════════════════════════════════════════════════════
-   CASINO MODULE
+   CASINO MODULE v2 — animated + custom bet
 ══════════════════════════════════════════════════════════════ */
-let _csnGame='slot';  // 'slot'|'bj'|'coin'
+let _csnGame='slot';
 let _csnBet=500;
-let _bjState=null;    // blackjack in-progress state
-let _coinPick='heads';// 'heads'|'tails'
+let _csnCustom=false;
+let _bjState=null;
+let _coinPick='heads';
+let _csnAnimating=false;
 window._slotReels=null;
 window._slotResult=null;
+window._slotWinReels=null;
 window._coinResult=null;
 
 const CSN_WIN_CAP=50000;
@@ -9472,6 +9508,39 @@ function renderCasino(){
   el.innerHTML=h;
 }
 
+/* ── SHARED BET UI ────────────────────────────────────────────*/
+function _renderBetUI(EN){
+  let h=`<div style="font-size:10px;color:var(--text3);letter-spacing:1px;margin:5px 0 3px;">${EN?'BET:':'TARUHAN:'}</div>`;
+  h+='<div class="csn-bet-row">';
+  CSN_BET_TIERS.forEach(b=>{
+    h+=`<button class="csn-bet-btn${_csnBet===b&&!_csnCustom?' sel':''}" ${G.money>=b?'':'disabled'} onclick="_csnBet=${b};_csnCustom=false;renderCasino()">${fmt(b)}</button>`;
+  });
+  h+=`<button class="csn-bet-btn${_csnCustom?' sel':''}" onclick="_csnCustom=!_csnCustom;renderCasino()">✏️</button>`;
+  h+='</div>';
+  if(_csnCustom){
+    const minB=100, maxB=Math.min(G.money,500000);
+    h+=`<div class="csn-custom-row">
+      <span class="csn-custom-lbl">${EN?'AMOUNT:':'JUMLAH:'}</span>
+      <input class="csn-custom-inp" id="csn-custom-val" type="number" min="${minB}" max="${maxB}" step="100"
+        value="${_csnBet}" onchange="" placeholder="${minB}–${fmt(maxB).replace('$','')}">
+      <button class="csn-custom-set" onclick="csnSetCustomBet()">${EN?'SET':'OK'}</button>
+    </div>
+    <div style="font-size:9px;color:var(--text3);text-align:center;letter-spacing:1px;margin-bottom:3px;">
+      ${EN?`Min $100 · Max ${fmt(maxB)} · Current: ${fmt(_csnBet)}`:`Min $100 · Max ${fmt(maxB)} · Sekarang: ${fmt(_csnBet)}`}
+    </div>`;
+  }
+  return h;
+}
+function csnSetCustomBet(){
+  const inp=document.getElementById('csn-custom-val');
+  if(!inp)return;
+  let v=Math.floor(Number(inp.value));
+  if(isNaN(v)||v<100)v=100;
+  if(v>G.money)v=G.money;
+  _csnBet=v;
+  renderCasino();
+}
+
 /* ── SLOT RENDER ──────────────────────────────────────────────*/
 function _renderSlot(EN,canPlay){
   const reels=window._slotReels||['🎰','🎰','🎰'];
@@ -9482,24 +9551,20 @@ function _renderSlot(EN,canPlay){
     ?'3-match: 💊=2x &nbsp;🔫=3x &nbsp;💰=4x &nbsp;💀=5x &nbsp;⭐=8x &nbsp;🌟=15x<br>Pair match: returns 1.2x • Costs 1 action'
     :'3 simbol sama: 💊=2x &nbsp;🔫=3x &nbsp;💰=4x &nbsp;💀=5x &nbsp;⭐=8x &nbsp;🌟=15x<br>Sepasang: 1.2x • Menggunakan 1 aksi'
   }</div>`;
-  h+='<div class="slot-reels">';
-  reels.forEach((s,i)=>{ h+=`<div class="slot-reel${winR[i]?' win':''}">${s}</div>`; });
+  // Reels — spinning class applied by casinoSpin, settled by id
+  h+=`<div class="slot-reels" id="csn-reels">`;
+  reels.forEach((s,i)=>{ h+=`<div class="slot-reel${winR[i]?' win':''}" id="csn-reel-${i}">${s}</div>`; });
   h+='</div>';
-  h+=`<div style="font-size:10px;color:var(--text3);letter-spacing:1px;margin:4px 0 3px;">${EN?'BET:':'TARUHAN:'}</div>`;
-  h+='<div class="csn-bet-row">';
-  CSN_BET_TIERS.forEach(b=>{
-    h+=`<button class="csn-bet-btn${_csnBet===b?' sel':''}" ${G.money>=b?'':'disabled'} onclick="_csnBet=${b};renderCasino()">${fmt(b)}</button>`;
-  });
-  h+='</div>';
+  h+=_renderBetUI(EN);
   if(res){
     let msg='',cls='';
-    if(res.type==='3x'){cls='win';msg=EN?`JACKPOT! ${res.mult}x — +${fmt(res.earned)}`:`JACKPOT! ${res.mult}x — +${fmt(res.earned)}`;}
-    else if(res.type==='pair'){cls='push';msg=EN?`PAIR! +${fmt(res.earned)}`:`SEPASANG! +${fmt(res.earned)}`;}
-    else{cls='lose';msg=EN?`NO MATCH — -${fmt(res.lost)}`:`TIDAK COCOK — -${fmt(res.lost)}`;}
-    h+=`<div class="csn-result ${cls}">${msg}</div>`;
+    if(res.type==='3x'){cls='win';msg=EN?`🎉 JACKPOT ${res.mult}x — +${fmt(res.earned)}`:`🎉 JACKPOT ${res.mult}x — +${fmt(res.earned)}`;}
+    else if(res.type==='pair'){cls='push';msg=EN?`✨ PAIR! +${fmt(res.earned)}`:`✨ SEPASANG! +${fmt(res.earned)}`;}
+    else{cls='lose';msg=EN?`💸 NO MATCH — -${fmt(res.lost)}`:`💸 TIDAK COCOK — -${fmt(res.lost)}`;}
+    h+=`<div class="csn-result ${cls} flash-in">${msg}</div>`;
   }
-  const dis=!canPlay||G.money<_csnBet;
-  h+=`<button class="csn-action-btn" ${dis?'disabled':''} onclick="casinoSpin()">🎰 ${EN?`SPIN — ${fmt(_csnBet)}`:`PUTAR — ${fmt(_csnBet)}`}</button>`;
+  const dis=!canPlay||G.money<_csnBet||_csnAnimating;
+  h+=`<button class="csn-action-btn" id="csn-spin-btn" ${dis?'disabled':''} onclick="casinoSpin()">🎰 ${EN?`SPIN — ${fmt(_csnBet)}`:`PUTAR — ${fmt(_csnBet)}`}</button>`;
   return h;
 }
 
@@ -9511,12 +9576,7 @@ function _renderBJ(EN,canPlay){
       ?'Beat dealer\'s total without busting (>21). Natural 21 = 2.5x. Win = 2x. Costs 1 action.'
       :'Kalahkan total dealer tanpa bust (>21). 21 natural = 2.5x. Menang = 2x. Gunakan 1 aksi.'
     }</div>`;
-    h+=`<div style="font-size:10px;color:var(--text3);letter-spacing:1px;margin:4px 0 3px;">${EN?'BET:':'TARUHAN:'}</div>`;
-    h+='<div class="csn-bet-row">';
-    CSN_BET_TIERS.forEach(b=>{
-      h+=`<button class="csn-bet-btn${_csnBet===b?' sel':''}" ${G.money>=b?'':'disabled'} onclick="_csnBet=${b};renderCasino()">${fmt(b)}</button>`;
-    });
-    h+='</div>';
+    h+=_renderBetUI(EN);
     const dis=!canPlay||G.money<_csnBet;
     h+=`<button class="csn-action-btn" ${dis?'disabled':''} onclick="casinoBJDeal()">🃏 ${EN?`DEAL — ${fmt(_csnBet)}`:`BAGIKAN — ${fmt(_csnBet)}`}</button>`;
   } else {
@@ -9525,16 +9585,14 @@ function _renderBJ(EN,canPlay){
     const showDealer=bj.ph==='result';
     const ds=showDealer?_bjScore(bj.dCards):0;
     h+='<div class="bj-table">';
-    // Dealer
-    h+=`<div class="bj-hand-lbl">DEALER${showDealer?' — '+ds:' — ?'}</div><div class="bj-cards">`;
-    (showDealer?bj.dCards:[bj.dCards[0]]).forEach(c=>{
-      h+=`<div class="bj-card${_bjRed()?'':''}">${_bjLbl(c)}</div>`;
+    h+=`<div class="bj-hand-lbl">DEALER${showDealer?' — '+ds:' — ?'}</div><div class="bj-cards" id="bj-dealer-cards">`;
+    (showDealer?bj.dCards:[bj.dCards[0]]).forEach((c,i)=>{
+      h+=`<div class="bj-card deal-in" style="animation-delay:${i*0.09}s">${_bjLbl(c)}</div>`;
     });
-    if(!showDealer)h+=`<div class="bj-card hidden">?</div>`;
+    if(!showDealer)h+=`<div class="bj-card hidden deal-in" style="animation-delay:0.09s">?</div>`;
     h+='</div>';
-    // Player
-    h+=`<div class="bj-hand-lbl">${EN?'YOU':'KAMU'} — ${ps}</div><div class="bj-cards">`;
-    bj.pCards.forEach(c=>{ h+=`<div class="bj-card">${_bjLbl(c)}</div>`; });
+    h+=`<div class="bj-hand-lbl">${EN?'YOU':'KAMU'} — ${ps}</div><div class="bj-cards" id="bj-player-cards">`;
+    bj.pCards.forEach((c,i)=>{ h+=`<div class="bj-card deal-in" style="animation-delay:${i*0.09}s">${_bjLbl(c)}</div>`; });
     h+='</div></div>';
     if(bj.ph==='play'){
       h+=`<div class="bj-act-row">
@@ -9543,11 +9601,11 @@ function _renderBJ(EN,canPlay){
       </div>`;
     } else {
       let msg='',cls='';
-      if(bj.result==='blackjack'){cls='win';msg=EN?`BLACKJACK! +${fmt(bj.won)}`:`BLACKJACK! +${fmt(bj.won)}`;}
-      else if(bj.result==='win')  {cls='win';msg=EN?`WIN! +${fmt(bj.won)}`:`MENANG! +${fmt(bj.won)}`;}
-      else if(bj.result==='push') {cls='push';msg=EN?'PUSH — Bet returned':'SERI — Taruhan kembali';}
-      else                        {cls='lose';msg=EN?`BUST / LOSE — -${fmt(bj.bet)}`:`BUST / KALAH — -${fmt(bj.bet)}`;}
-      h+=`<div class="csn-result ${cls}">${msg}</div>`;
+      if(bj.result==='blackjack'){cls='win';msg=EN?`🂡 BLACKJACK! +${fmt(bj.won)}`:`🂡 BLACKJACK! +${fmt(bj.won)}`;}
+      else if(bj.result==='win')  {cls='win';msg=EN?`✅ WIN! +${fmt(bj.won)}`:`✅ MENANG! +${fmt(bj.won)}`;}
+      else if(bj.result==='push') {cls='push';msg=EN?'🤝 PUSH — Bet returned':'🤝 SERI — Taruhan kembali';}
+      else                        {cls='lose';msg=EN?`💥 BUST — -${fmt(bj.bet)}`:`💥 BUST — -${fmt(bj.bet)}`;}
+      h+=`<div class="csn-result ${cls} flash-in">${msg}</div>`;
       h+=`<button class="csn-action-btn" onclick="_bjState=null;renderCasino()" style="margin-top:8px;">${EN?'▶ PLAY AGAIN':'▶ MAIN LAGI'}</button>`;
     }
   }
@@ -9557,72 +9615,106 @@ function _renderBJ(EN,canPlay){
 /* ── COIN RENDER ──────────────────────────────────────────────*/
 function _renderCoin(EN){
   const res=window._coinResult||null;
-  const dis=G.money<_csnBet||_csnCapReached();
+  const dis=G.money<_csnBet||_csnCapReached()||_csnAnimating;
+  const coinSym=res?res.sym:'🪙';
   let h='';
   h+=`<div class="csn-info">${EN
     ?'Pick Heads or Tails. Win pays 1.9x your bet. FREE — no action cost. House edge: ~6%.'
     :'Pilih Kepala atau Ekor. Menang bayar 1.9x taruhan. GRATIS — tanpa biaya aksi. House edge: ~6%.'
   }</div>`;
-  h+=`<div class="coin-wrap"><div class="coin">${res?res.sym:'🪙'}</div></div>`;
+  h+=`<div class="coin-wrap"><div class="coin" id="csn-coin">${coinSym}</div></div>`;
   h+=`<div class="coin-choice-row">
     <button class="coin-choice-btn${_coinPick==='heads'?' sel':''}" onclick="_coinPick='heads';renderCasino()">👑 ${EN?'HEADS':'KEPALA'}</button>
     <button class="coin-choice-btn${_coinPick==='tails'?' sel':''}" onclick="_coinPick='tails';renderCasino()">💀 ${EN?'TAILS':'EKOR'}</button>
   </div>`;
-  h+=`<div style="font-size:10px;color:var(--text3);letter-spacing:1px;margin:4px 0 3px;">${EN?'BET:':'TARUHAN:'}</div>`;
-  h+='<div class="csn-bet-row">';
-  CSN_BET_TIERS.forEach(b=>{
-    h+=`<button class="csn-bet-btn${_csnBet===b?' sel':''}" ${G.money>=b?'':'disabled'} onclick="_csnBet=${b};renderCasino()">${fmt(b)}</button>`;
-  });
-  h+='</div>';
+  h+=_renderBetUI(EN);
   if(res){
     const cls=res.win?'win':'lose';
-    const msg=res.win
-      ?(EN?`${res.sym} ${res.face.toUpperCase()}! +${fmt(res.won)}`:`${res.sym} ${res.face==='heads'?'KEPALA':'EKOR'}! +${fmt(res.won)}`)
-      :(EN?`${res.sym} ${res.face.toUpperCase()}! -${fmt(res.lost)}`:`${res.sym} ${res.face==='heads'?'KEPALA':'EKOR'}! -${fmt(res.lost)}`);
-    h+=`<div class="csn-result ${cls}">${msg}</div>`;
+    const faceLbl=res.face==='heads'?(EN?'HEADS':'KEPALA'):(EN?'TAILS':'EKOR');
+    const msg=res.win?`${res.sym} ${faceLbl}! +${fmt(res.won)}`:`${res.sym} ${faceLbl}! -${fmt(res.lost)}`;
+    h+=`<div class="csn-result ${cls} flash-in">${msg}</div>`;
   }
   h+=`<button class="csn-action-btn" ${dis?'disabled':''} onclick="casinoCoin()" style="background:linear-gradient(180deg,#5a3810,#2a1808);border-color:rgba(212,149,42,.5);">🪙 ${EN?`FLIP — ${fmt(_csnBet)}`:`LEMPAR — ${fmt(_csnBet)}`}</button>`;
   h+=`<div style="font-size:9px;color:var(--text3);text-align:center;margin-top:4px;letter-spacing:1px;">${EN?'No action cost':'Tanpa biaya aksi'}</div>`;
   return h;
 }
 
-/* ── GAME ACTIONS ─────────────────────────────────────────────*/
+/* ── GAME ACTIONS — with DOM animations ─────────────────────*/
 function casinoSpin(){
-  if(G.actionsLeft<=0||_csnCapReached()||G.money<_csnBet)return;
+  if(_csnAnimating||G.actionsLeft<=0||_csnCapReached()||G.money<_csnBet)return;
+  _csnAnimating=true;
+
+  // 1. Deduct & compute result immediately
   G.money-=_csnBet;
   const ri=[_sRoll(),_sRoll(),_sRoll()];
-  window._slotReels=ri.map(i=>_SSYM[i]);
+  const finalSyms=ri.map(i=>_SSYM[i]);
   const res=_sRes(ri);
+  let resultData;
   if(res.type==='3x'){
     const gross=Math.floor(_csnBet*_SPAY[res.idx]);
     const actual=_csnPayout(_csnBet,gross,false);
     window._slotWinReels=[true,true,true];
-    window._slotResult={type:'3x',mult:_SPAY[res.idx],earned:actual-_csnBet/* net shown as earned */};
-    // Fix: earned = actual payout minus returned bet
-    window._slotResult.earned=actual;
+    resultData={type:'3x',mult:_SPAY[res.idx],earned:actual};
   } else if(res.type==='pair'){
     const gross=Math.floor(_csnBet*1.2);
     const actual=_csnPayout(_csnBet,gross,false);
     const wi=[ri[0]===ri[1],ri[1]===ri[2]||ri[0]===ri[2],ri[1]===ri[2]];
     window._slotWinReels=wi;
-    window._slotResult={type:'pair',earned:actual};
+    resultData={type:'pair',earned:actual};
   } else {
     _csnPayout(_csnBet,0,false);
     window._slotWinReels=[false,false,false];
-    window._slotResult={type:'lose',lost:_csnBet};
+    resultData={type:'lose',lost:_csnBet};
   }
-  renderCasino();
+
+  // 2. Show spinning reels in DOM
+  for(let i=0;i<3;i++){
+    const el=document.getElementById('csn-reel-'+i);
+    if(el){el.classList.add('spinning');el.textContent='🎰';}
+  }
+  const spinBtn=document.getElementById('csn-spin-btn');
+  if(spinBtn)spinBtn.disabled=true;
+
+  // 3. Stagger settle per reel
+  const delays=[420,680,920];
+  const fakeSyms=_SSYM;
+  delays.forEach((delay,i)=>{
+    // Random flicker during spin
+    let flicker=setInterval(()=>{
+      const el=document.getElementById('csn-reel-'+i);
+      if(el&&el.classList.contains('spinning'))
+        el.textContent=fakeSyms[Math.floor(Math.random()*fakeSyms.length)];
+    },80);
+    setTimeout(()=>{
+      clearInterval(flicker);
+      const el=document.getElementById('csn-reel-'+i);
+      if(el){
+        el.classList.remove('spinning');
+        el.classList.add('settle');
+        el.textContent=finalSyms[i];
+        if((window._slotWinReels||[])[i])el.classList.add('win');
+        setTimeout(()=>el.classList.remove('settle'),320);
+      }
+      // After last reel settles: store result and re-render
+      if(i===2){
+        setTimeout(()=>{
+          window._slotReels=finalSyms;
+          window._slotResult=resultData;
+          _csnAnimating=false;
+          renderCasino();
+        },350);
+      }
+    },delay);
+  });
 }
 
 function casinoBJDeal(){
   if(G.actionsLeft<=0||_csnCapReached()||G.money<_csnBet)return;
   G.money-=_csnBet;
   _bjState={ph:'play',pCards:[_bjDeal(),_bjDeal()],dCards:[_bjDeal(),_bjDeal()],bet:_csnBet,won:0};
-  // Action/heat paid on deal regardless of outcome
   G.actionsLeft=Math.max(0,G.actionsLeft-1);
   G.casinoGamesPlayed=(G.casinoGamesPlayed||0)+1;
   G.heat=clamp(G.heat+rand(1,3),0,100);
-  // Check natural blackjack immediately
   if(_bjScore(_bjState.pCards)===21){
     const gross=Math.floor(_csnBet*2.5);
     const capLeft=_csnCapLeft();
@@ -9640,15 +9732,13 @@ function casinoBJHit(){
   _bjState.pCards.push(_bjDeal());
   const ps=_bjScore(_bjState.pCards);
   if(ps>21){
-    // Bust
     G.casinoWonToday=(G.casinoWonToday||0)-_bjState.bet;
     _bjState.ph='result';_bjState.result='bust';
-    saveGame();updateHUD();renderCasino();
+    saveGame();updateHUD();
   } else if(ps===21){
-    casinoBJStand();
-  } else {
-    renderCasino();
+    return casinoBJStand();
   }
+  renderCasino();
 }
 
 function casinoBJStand(){
@@ -9662,9 +9752,8 @@ function casinoBJStand(){
     G.casinoWonToday=(G.casinoWonToday||0)-_bjState.bet;
   } else if(ds>21||ps>ds){
     result='win';
-    const gross=_bjState.bet*2;
     const capLeft=_csnCapLeft();
-    won=Math.min(gross,_bjState.bet+capLeft);
+    won=Math.min(_bjState.bet*2,_bjState.bet+capLeft);
     G.money+=won;
     G.casinoWonToday=(G.casinoWonToday||0)+(won-_bjState.bet);
   } else if(ps===ds){
@@ -9679,20 +9768,36 @@ function casinoBJStand(){
 }
 
 function casinoCoin(){
-  if(G.money<_csnBet||_csnCapReached())return;
+  if(_csnAnimating||G.money<_csnBet||_csnCapReached())return;
+  _csnAnimating=true;
+
+  // Deduct & compute immediately
   G.money-=_csnBet;
-  const landed=Math.random()<0.47?'heads':'tails'; // 47% heads
+  const landed=Math.random()<0.47?'heads':'tails';
   const win=landed===_coinPick;
   const sym=landed==='heads'?'👑':'💀';
+  let resultData;
   if(win){
-    const gross=Math.floor(_csnBet*1.9);
-    const actual=_csnPayout(_csnBet,gross,true); // free spin: no action cost
-    window._coinResult={win:true,sym,face:landed,won:actual};
+    const actual=_csnPayout(_csnBet,Math.floor(_csnBet*1.9),true);
+    resultData={win:true,sym,face:landed,won:actual};
   } else {
     _csnPayout(_csnBet,0,true);
-    window._coinResult={win:false,sym,face:landed,lost:_csnBet};
+    resultData={win:false,sym,face:landed,lost:_csnBet};
   }
-  renderCasino();
+
+  // Animate coin
+  const coinEl=document.getElementById('csn-coin');
+  if(coinEl){
+    coinEl.classList.add('flipping');
+    // Mid-flip: swap symbol
+    setTimeout(()=>{ if(coinEl)coinEl.textContent=sym; },350);
+  }
+
+  setTimeout(()=>{
+    window._coinResult=resultData;
+    _csnAnimating=false;
+    renderCasino();
+  },750);
 }
 function visitCiudad(locId, actId){
   const EN = window.NE_LANG === 'en';
@@ -12931,8 +13036,8 @@ window.applyLangToDOM = function(){
     const fromGame = (typeof _settingsFromGame !== 'undefined') && _settingsFromGame;
     if(ingame) ingame.style.display = fromGame ? '' : 'none';
     if(ctxSub) ctxSub.textContent = fromGame
-      ? ('NARCO EMPIRE v1.0 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
-      : 'NARCO EMPIRE v1.0';
+      ? ('NARCO EMPIRE v1.1 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
+      : 'NARCO EMPIRE v1.1';
   }
 };
 
@@ -13102,7 +13207,7 @@ window.addLog = function(msg, type){
     <div class="slot-panel-hdr">
       <div>
         <div class="slot-panel-hdr-t">⚙ <span data-t="s_title">PENGATURAN</span></div>
-        <div class="slot-panel-hdr-sub" id="settings-ctx-sub">NARCO EMPIRE v1.0</div>
+        <div class="slot-panel-hdr-sub" id="settings-ctx-sub">NARCO EMPIRE v1.1</div>
       </div>
       <button class="slot-close-btn" onclick="closeSettings()">✕ <span data-t="close">TUTUP</span></button>
     </div>
@@ -13149,7 +13254,7 @@ window.addLog = function(msg, type){
       <div class="settings-title">ℹ <span data-t="s_info_title">INFORMASI</span></div>
       <div class="settings-row">
         <div><div class="settings-lbl" data-t="s_version_lbl">Versi Game</div></div>
-        <span style="font-family:var(--font-d);font-size:12px;color:var(--gold);" id="ne-settings-ver-text">v1.0</span>
+        <span style="font-family:var(--font-d);font-size:12px;color:var(--gold);" id="ne-settings-ver-text">v1.1</span>
       </div>
       <div class="settings-row" id="ne-settings-upd-row">
         <div><div class="settings-lbl">Status Update</div></div>
