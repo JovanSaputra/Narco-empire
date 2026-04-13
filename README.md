@@ -1,6 +1,6 @@
 <div align="center">
 
-# 💀 NARCO EMPIRE v1.2
+# 💀 NARCO EMPIRE v1.2.1
 
 **Simulation Game • Fiction Only**
 
