@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>NARCO EMPIRE v1.2</title>
+<title>NARCO EMPIRE v1.2.1</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#8a0818">
 <meta name="mobile-web-app-capable" content="yes">
@@ -2398,7 +2398,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
   <div class="ld-corner br"></div>
   <!-- Top strip -->
   <div class="ld-topbar">
-    <div class="ld-topbar-l">NARCO EMPIRE · v1.2</div>
+    <div class="ld-topbar-l">NARCO EMPIRE · v1.2.1</div>
     <div class="ld-topbar-r"><div class="ld-topbar-dot"></div>LOADING</div>
   </div>
   <!-- Main body -->
@@ -2408,7 +2408,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
       <div class="ld-skull">💀</div>
       <div class="ld-title">NARCO</div>
       <div class="ld-subtitle">EMPIRE</div>
-      <div class="ld-ver-badge">v1.2 · CARTEL SIMULATION · 2026</div>
+      <div class="ld-ver-badge">v1.2.1 · CARTEL SIMULATION · 2026</div>
     </div>
     <!-- Separator -->
     <div class="ld-sep"></div>
@@ -2493,7 +2493,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
       <span class="spl-t1">NARCO</span>
       <span class="spl-t2">EMPIRE</span>
       <div class="spl-sub">BANGUN KERAJAAN KARTELMU DARI NOL</div>
-      <div class="spl-ver">v1.2 · BUILD 2026</div>
+      <div class="spl-ver">v1.2.1 · BUILD 2026</div>
       <div style="height:14px;"></div>
       <!-- Stats row -->
       <div class="spl-stats">
@@ -7921,8 +7921,8 @@ function openSettings(fromGame) {
   if (ctxSub) {
     const EN = window.NE_LANG === 'en';
     ctxSub.textContent = _fromGame
-      ? ('NARCO EMPIRE v1.2 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
-      : 'NARCO EMPIRE v1.2';
+      ? ('NARCO EMPIRE v1.2.1 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
+      : 'NARCO EMPIRE v1.2.1';
   }
   document.getElementById('scr-settings').classList.add('on');
 }
@@ -13460,8 +13460,8 @@ window.applyLangToDOM = function(){
     const fromGame = (typeof _settingsFromGame !== 'undefined') && _settingsFromGame;
     if(ingame) ingame.style.display = fromGame ? '' : 'none';
     if(ctxSub) ctxSub.textContent = fromGame
-      ? ('NARCO EMPIRE v1.2 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
-      : 'NARCO EMPIRE v1.2';
+      ? ('NARCO EMPIRE v1.2.1 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
+      : 'NARCO EMPIRE v1.2.1';
   }
 };
 
@@ -13631,7 +13631,7 @@ window.addLog = function(msg, type){
     <div class="slot-panel-hdr">
       <div>
         <div class="slot-panel-hdr-t">⚙ <span data-t="s_title">PENGATURAN</span></div>
-        <div class="slot-panel-hdr-sub" id="settings-ctx-sub">NARCO EMPIRE v1.2</div>
+        <div class="slot-panel-hdr-sub" id="settings-ctx-sub">NARCO EMPIRE v1.2.1</div>
       </div>
       <button class="slot-close-btn" onclick="closeSettings()">✕ <span data-t="close">TUTUP</span></button>
     </div>
@@ -13678,7 +13678,7 @@ window.addLog = function(msg, type){
       <div class="settings-title">ℹ <span data-t="s_info_title">INFORMASI</span></div>
       <div class="settings-row">
         <div><div class="settings-lbl" data-t="s_version_lbl">Versi Game</div></div>
-        <span style="font-family:var(--font-d);font-size:12px;color:var(--gold);" id="ne-settings-ver-text">v1.2</span>
+        <span style="font-family:var(--font-d);font-size:12px;color:var(--gold);" id="ne-settings-ver-text">v1.2.1</span>
       </div>
       <div class="settings-row" id="ne-settings-upd-row">
         <div><div class="settings-lbl">Status Update</div></div>
@@ -15433,7 +15433,7 @@ window.openSettings=function(fromGame){
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    KONFIGURASI — HANYA EDIT BAGIAN INI
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-const GAME_VERSION      = '1.2.0';
+const GAME_VERSION      = '1.2.1';
 const VERSION_MANIFEST_URL =
   'https://raw.githubusercontent.com/JovanSaputra/Narco-empire/main/version.json';
 /*

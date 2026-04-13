@@ -1,7 +1,7 @@
 {
-  "version": "1.2.0",
-  "url": "https://raw.githubusercontent.com/JovanSaputra/Narco-empire/main/narco_empire_offline.html",
-  "changelog": "v1.2.0 — Global Leaderboard: submit & lihat peringkat semua pemain via Firebase",
+  "version": "1.2.1",
+  "url": "https://raw.githubusercontent.com/JovanSaputra/Narco-empire/main/index.html",
+  "changelog": "v1.2.1 — Bug fixes: syntax error visitCiudad, casino animation guard, leaderboard render",
   "countdown": 5,
   "mandatory": false
 }

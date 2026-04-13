@@ -1,5 +1,5 @@
-/* NARCO EMPIRE — Service Worker v1.2.0 */
-const CACHE = 'narco-empire-v1.2.0';
+/* NARCO EMPIRE — Service Worker v1.2.1 */
+const CACHE = 'narco-empire-v1.2.1';
 const PRECACHE = ['./index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
