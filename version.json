@@ -1,7 +1,7 @@
 {
   "version": "1.2.1",
-  "url": "https://raw.githubusercontent.com/JovanSaputra/Narco-empire/main/index.html",
-  "changelog": "v1.2.1 — Bug fixes: syntax error visitCiudad, casino animation guard, leaderboard render",
+  "url": "https://raw.githubusercontent.com/JovanSaputra/Narco-empire/main/narco_empire_offline.html",
+  "changelog": "v1.2.1 \u2014 Fix casino custom bet + PWA installable",
   "countdown": 5,
   "mandatory": false
 }

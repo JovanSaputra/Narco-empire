@@ -7921,8 +7921,8 @@ function openSettings(fromGame) {
   if (ctxSub) {
     const EN = window.NE_LANG === 'en';
     ctxSub.textContent = _fromGame
-      ? ('NARCO EMPIRE v1.2.1 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
-      : 'NARCO EMPIRE v1.2.1';
+      ? ('NARCO EMPIRE v1.2 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
+      : 'NARCO EMPIRE v1.2';
   }
   document.getElementById('scr-settings').classList.add('on');
 }
@@ -13460,8 +13460,8 @@ window.applyLangToDOM = function(){
     const fromGame = (typeof _settingsFromGame !== 'undefined') && _settingsFromGame;
     if(ingame) ingame.style.display = fromGame ? '' : 'none';
     if(ctxSub) ctxSub.textContent = fromGame
-      ? ('NARCO EMPIRE v1.2.1 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
-      : 'NARCO EMPIRE v1.2.1';
+      ? ('NARCO EMPIRE v1.2 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
+      : 'NARCO EMPIRE v1.2';
   }
 };
 
@@ -13631,7 +13631,7 @@ window.addLog = function(msg, type){
     <div class="slot-panel-hdr">
       <div>
         <div class="slot-panel-hdr-t">⚙ <span data-t="s_title">PENGATURAN</span></div>
-        <div class="slot-panel-hdr-sub" id="settings-ctx-sub">NARCO EMPIRE v1.2.1</div>
+        <div class="slot-panel-hdr-sub" id="settings-ctx-sub">NARCO EMPIRE v1.2</div>
       </div>
       <button class="slot-close-btn" onclick="closeSettings()">✕ <span data-t="close">TUTUP</span></button>
     </div>
@@ -13678,7 +13678,7 @@ window.addLog = function(msg, type){
       <div class="settings-title">ℹ <span data-t="s_info_title">INFORMASI</span></div>
       <div class="settings-row">
         <div><div class="settings-lbl" data-t="s_version_lbl">Versi Game</div></div>
-        <span style="font-family:var(--font-d);font-size:12px;color:var(--gold);" id="ne-settings-ver-text">v1.2.1</span>
+        <span style="font-family:var(--font-d);font-size:12px;color:var(--gold);" id="ne-settings-ver-text">v1.2</span>
       </div>
       <div class="settings-row" id="ne-settings-upd-row">
         <div><div class="settings-lbl">Status Update</div></div>
