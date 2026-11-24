@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>NARCO EMPIRE v1.2.1</title>
+<title>NARCO EMPIRE v1.3.0</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#8a0818">
 <meta name="mobile-web-app-capable" content="yes">
@@ -17,6 +17,7 @@
 <meta name="msapplication-TileImage" content="icon-512.png">
 <meta name="msapplication-TileColor" content="#8a0818">
 <script>window.__NE_PWA={prompt:null,installed:localStorage.getItem('ne_pwa_installed')==='1'||window.matchMedia('(display-mode:standalone)').matches||navigator.standalone===true};window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__NE_PWA.prompt=e;var b=document.getElementById('btn-pwa-install');if(b&&!window.__NE_PWA.installed)b.style.display='flex';});window.addEventListener('appinstalled',function(){window.__NE_PWA.installed=true;window.__NE_PWA.prompt=null;localStorage.setItem('ne_pwa_installed','1');var b=document.getElementById('btn-pwa-install'),t=document.getElementById('pwa-ios-tip');if(b)b.style.display='none';if(t)t.style.display='none';if(typeof toast==='function')toast('📲 Game berhasil diinstall!','good');});</script>
+<script>/* NE-SUPPORT early theme (anti-flash) */(function(){try{if(localStorage.getItem('narco_supporter')&&localStorage.getItem('narco_sup_theme')!=='0')document.documentElement.classList.add('ne-sup');}catch(e){}})();</script>
 <!-- OFFLINE MODE: Google Fonts removed, using embedded system font stack -->
 <style>
 /* ── Bebas Neue replacement: condensed display font (offline safe) ── */
@@ -2301,6 +2302,139 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
 .sib-home .sib-name{color:var(--red2);}
 .sib-sub{font-size:9.5px;color:var(--text3);letter-spacing:.5px;margin-top:2px;}
 </style>
+<style id="ne-support-css">
+/* ═══════════════════════════════════════════════════════════════
+   SUPPORTER SYSTEM — panel, tombol, badge, tema BLACK GOLD
+   (aditif: semua selector memakai prefix .ne-sup / #scr-support)
+═══════════════════════════════════════════════════════════════ */
+#scr-support{
+  position:absolute;inset:0;z-index:9100;
+  background:rgba(0,0,0,.92);
+  display:none;flex-direction:column;align-items:center;justify-content:flex-start;
+  padding:0;backdrop-filter:blur(6px);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;
+}
+#scr-support.on{display:flex;animation:fadein .22s ease;}
+.ne-sup-panel{
+  background:linear-gradient(160deg,#2a1a06 0%,#160e04 100%);
+  border:1px solid var(--bord2);border-radius:6px;
+  width:calc(100% - 24px);max-width:440px;margin:16px auto;
+  box-shadow:0 0 0 1px rgba(212,149,42,.12),0 16px 50px rgba(0,0,0,.9);
+  max-height:calc(100dvh - 32px);
+  overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  flex-shrink:0;
+  animation:npPop .28s cubic-bezier(.22,.68,0,1.2);
+}
+.ne-sup-panel .slot-close-btn{white-space:nowrap;flex-shrink:0;margin-left:8px;}
+.ne-sup-hero{padding:16px 16px 14px;text-align:center;border-bottom:1px solid var(--border);}
+.ne-sup-hero-ic{font-size:38px;line-height:1;filter:drop-shadow(0 0 18px rgba(240,184,74,.6));}
+.ne-sup-hero p{font-size:11px;line-height:1.6;color:var(--text2);letter-spacing:.3px;margin-top:8px;}
+.ne-sup-cta{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;margin-top:12px;padding:13px 10px;
+  font-family:var(--font-d);font-size:17px;letter-spacing:2px;text-align:center;
+  text-decoration:none;color:#1a1005;
+  background:linear-gradient(180deg,var(--gold2) 0%,var(--gold) 100%);
+  border:1px solid var(--gold2);border-radius:2px;
+  box-shadow:0 0 16px rgba(240,184,74,.28),inset 0 1px 0 rgba(255,255,255,.35);
+  cursor:pointer;
+}
+.ne-sup-cta:active{transform:translateY(1px);filter:brightness(.92);}
+.ne-sup-min{font-size:10px;color:var(--text3);letter-spacing:1px;margin-top:9px;}
+.ne-sup-min b{color:var(--gold2);font-weight:normal;}
+.ne-sup-sec{padding:12px 14px;border-bottom:1px solid var(--border);}
+.ne-sup-sec:last-child{border-bottom:none;}
+.ne-sup-sec-t{font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.ne-sup-step{display:flex;gap:9px;align-items:flex-start;font-size:11px;color:var(--text2);line-height:1.5;padding:4px 0;letter-spacing:.3px;}
+.ne-sup-step b{
+  flex-shrink:0;width:18px;height:18px;margin-top:0;
+  border:1px solid var(--gdim);border-radius:50%;
+  color:var(--gold);font-family:var(--font-d);font-size:11px;font-weight:normal;
+  display:flex;align-items:center;justify-content:center;
+}
+.ne-sup-code-row{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+.ne-sup-input{
+  width:100%;min-width:0;padding:11px 10px;
+  background:rgba(0,0,0,.35);border:1px solid var(--bord2);border-radius:2px;outline:none;
+  color:var(--white);font-family:var(--font);font-size:16px;letter-spacing:2px;text-transform:uppercase;
+  -webkit-user-select:text;user-select:text;
+}
+.ne-sup-input:focus{border-color:var(--gold);}
+.ne-sup-input::placeholder{color:var(--text3);opacity:.7;}
+.ne-sup-act{
+  width:100%;padding:11px 14px;cursor:pointer;border-radius:2px;
+  background:rgba(212,149,42,.12);border:1px solid var(--gold);
+  color:var(--gold);font-family:var(--font-d);font-size:16px;letter-spacing:3px;
+}
+.ne-sup-act:active{background:rgba(212,149,42,.28);}
+.ne-sup-msg{font-size:10px;margin-top:7px;min-height:14px;letter-spacing:.5px;line-height:1.4;}
+.ne-sup-msg.bad{color:var(--red2);}
+.ne-sup-msg.good{color:var(--g2);}
+.ne-sup-ben{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.ne-sup-ben:last-child{border-bottom:none;}
+.ne-sup-ben-ic{font-size:20px;line-height:1.1;flex-shrink:0;width:26px;text-align:center;}
+.ne-sup-ben-t{font-size:12px;color:var(--white);letter-spacing:.5px;}
+.ne-sup-ben-d{font-size:10px;color:var(--text3);margin-top:2px;line-height:1.5;letter-spacing:.3px;}
+.ne-sup-ben-ok{margin-left:auto;flex-shrink:0;color:var(--g2);font-size:13px;line-height:1.2;}
+.ne-sup-active{
+  margin:12px 14px 0;padding:12px;text-align:center;border-radius:3px;
+  border:1px solid var(--gold);
+  background:linear-gradient(135deg,rgba(240,184,74,.14),rgba(240,184,74,.03));
+}
+.ne-sup-active-t{font-family:var(--font-d);font-size:20px;letter-spacing:3px;color:var(--gold2);text-shadow:0 0 14px rgba(240,184,74,.5);}
+.ne-sup-active-s{font-size:10px;color:var(--text2);margin-top:5px;line-height:1.5;letter-spacing:.4px;}
+.ne-sup-active-c{font-size:10px;color:var(--text3);margin-top:6px;letter-spacing:2px;}
+
+/* menu utama: chip badge + tombol Support (di baris yang sama dengan Layar Penuh → tinggi layar tidak bertambah) */
+.ne-sup-chip{
+  display:none;vertical-align:top;margin-top:10px;margin-left:6px;padding:2px 10px;
+  font-size:9px;letter-spacing:3px;color:var(--gold2);
+  border:1px solid rgba(240,184,74,.45);background:rgba(240,184,74,.08);
+  text-shadow:0 0 10px rgba(240,184,74,.5);
+}
+.ne-sup-chip.on{display:inline-block;}
+.ne-sup-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ne-sup-row #btn-fs{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:4px!important;padding-right:4px!important;}
+.ne-sup-splash-btn{
+  display:flex;align-items:center;justify-content:center;
+  padding:8px 4px;font-size:9px;letter-spacing:1px;white-space:nowrap;
+  color:var(--gold2);border:1px solid rgba(240,184,74,.4);background:rgba(240,184,74,.07);
+  cursor:pointer;transition:background .15s;
+  animation:neSupGlow 3.2s ease-in-out infinite;
+}
+.ne-sup-splash-btn:active{background:rgba(240,184,74,.2);}
+@keyframes neSupGlow{0%,100%{box-shadow:0 0 0 rgba(240,184,74,0);}50%{box-shadow:0 0 12px rgba(240,184,74,.28);}}
+a.ne-sup-link-row{text-decoration:none;color:inherit;cursor:pointer;}
+
+/* ═══ TEMA BLACK GOLD — aktif bila <html class="ne-sup"> ═══
+   Hanya palet netral/emas yang diganti; warna semantik (merah=bahaya, hijau=untung) tetap. */
+html.ne-sup{
+  --bg0:#0b0a10;--bg1:#12101a;--bg2:#191623;--bg3:#221e30;--card:#14121d;
+  --gold:#F2C14E;--gold2:#FFE08A;--gdim:#8a6a1c;
+  --text:#EDE3C8;--text2:#B9AC82;--text3:#7f7556;--white:#FFFBEF;
+  --border:#3a3150;--bord2:#54467a;
+  --card-glow:0 0 0 1px rgba(242,193,78,.14),0 4px 24px rgba(0,0,0,.55);
+  --gold-edge:linear-gradient(90deg,transparent,rgba(242,193,78,.65),transparent);
+  background:#07060b;
+}
+html.ne-sup .hud{background:linear-gradient(180deg,#1d1833 0%,#0f0d18 100%);}
+html.ne-sup .hud-av,html.ne-sup .boss-portrait{background:radial-gradient(circle at 35% 35%,#3b2f63,#0f0d18);}
+html.ne-sup .b-nav{background:linear-gradient(180deg,#0f0d18 0%,#0a0910 100%);}
+html.ne-sup #more-panel{background:linear-gradient(180deg,#1d1833 0%,#0a0910 100%);}
+html.ne-sup .card,html.ne-sup .act-item,html.ne-sup .drug-item,html.ne-sup .crew-item,
+html.ne-sup .terr-item,html.ne-sup .shop-item,html.ne-sup .biz-card,html.ne-sup .corr-node,
+html.ne-sup .ops-card,html.ne-sup .manip-card,html.ne-sup .prod-chain,html.ne-sup .ciudad-card,
+html.ne-sup .loan-lender{background:linear-gradient(180deg,#1f1a36 0%,var(--card) 100%);}
+html.ne-sup .shop-hdr,html.ne-sup .csn-hdr{background:linear-gradient(180deg,#1d1833,var(--bg1));}
+html.ne-sup .shop-cat-card,html.ne-sup .ap-box{background:linear-gradient(160deg,#1f1a36 0%,#0f0d18 100%);}
+html.ne-sup #tut-card{background:linear-gradient(160deg,#1c1830 0%,#0d0b14 100%);border-color:var(--gold);}
+html.ne-sup .ap-top{background:linear-gradient(180deg,#2a2347 0%,#1d1833 100%);}
+html.ne-sup .map-toggle{background:linear-gradient(90deg,#0f0d18,#0a0910);}
+html.ne-sup .np-sheet,html.ne-sup .slot-panel,html.ne-sup .settings-panel,html.ne-sup .ne-sup-panel{
+  background:linear-gradient(160deg,#1c1830 0%,#0d0b14 100%);
+}
+html.ne-sup .ne-sup-chip,html.ne-sup .ne-sup-splash-btn{border-color:rgba(242,193,78,.5);}
+</style>
 </head>
 <body>
 <div id="app-shell">
@@ -2398,7 +2532,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
   <div class="ld-corner br"></div>
   <!-- Top strip -->
   <div class="ld-topbar">
-    <div class="ld-topbar-l">NARCO EMPIRE · v1.2.1</div>
+    <div class="ld-topbar-l">NARCO EMPIRE · v1.3.0</div>
     <div class="ld-topbar-r"><div class="ld-topbar-dot"></div>LOADING</div>
   </div>
   <!-- Main body -->
@@ -2408,7 +2542,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
       <div class="ld-skull">💀</div>
       <div class="ld-title">NARCO</div>
       <div class="ld-subtitle">EMPIRE</div>
-      <div class="ld-ver-badge">v1.2.1 · CARTEL SIMULATION · 2026</div>
+      <div class="ld-ver-badge">v1.3.0 · CARTEL SIMULATION · 2026</div>
     </div>
     <!-- Separator -->
     <div class="ld-sep"></div>
@@ -2493,7 +2627,8 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
       <span class="spl-t1">NARCO</span>
       <span class="spl-t2">EMPIRE</span>
       <div class="spl-sub">BANGUN KERAJAAN KARTELMU DARI NOL</div>
-      <div class="spl-ver">v1.2.1 · BUILD 2026</div>
+      <div class="spl-ver">v1.3.0 · BUILD 2026</div>
+      <span class="ne-sup-chip" id="ne-sup-chip">💎 SUPPORTER</span>
       <div style="height:14px;"></div>
       <!-- Stats row -->
       <div class="spl-stats">
@@ -2522,7 +2657,10 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
         <button class="spl-guide-btn" onclick="show('scr-guide')">📖 PANDUAN &amp; TUTORIAL LENGKAP</button>
         <button id="btn-pwa-install" onclick="pwaInstall()">📲 INSTALL GAME</button>
         <div id="pwa-ios-tip">📲 Install: tap <b>⬆ Share</b> → <b>Tambahkan ke Layar Utama</b></div>
-        <button class="btn-b" onclick="requestFS()" id="btn-fs" style="font-size:9px;letter-spacing:1px;opacity:.6;padding:8px;">⛶ LAYAR PENUH</button>
+        <div class="ne-sup-row">
+          <button class="btn-b" onclick="requestFS()" id="btn-fs" style="font-size:9px;letter-spacing:1px;opacity:.6;padding:8px;">⛶ LAYAR PENUH</button>
+          <div class="ne-sup-splash-btn" id="ne-sup-splash-btn" role="button" tabindex="0">💖 SUPPORT</div>
+        </div>
       </div>
       <div style="height:4px;"></div>
       <div class="spl-credit">
@@ -2797,6 +2935,7 @@ body::after{content:'';display:none;}/* scanline moved to app-shell */
       <div class="hud-strip-right">
         <span class="hud-pill" id="hud-crew">👥 0</span>
         <span class="hud-pill hi" id="hud-terr">🏴 0/12</span>
+        <span class="hud-pill hi" id="ne-sup-hud" style="display:none;cursor:pointer;" onclick="NE_SUPPORT.openPanel()">💎</span>
       </div>
     </div>
     <div class="hud-menu-row">
@@ -4388,6 +4527,8 @@ function startGame(){
   if(_heatZones[_zone])G.heat=_heatZones[_zone];
   initPrices();
   migrateState(); // ensure all v6+ fields initialized on new game
+  // Bonus Supporter (Starter Pack) — hanya bila status supporter aktif; aman bila modul belum ada
+  try{ if(window.NE_SUPPORT&&window.NE_SUPPORT.isActive()){ G.money+=window.NE_SUPPORT.starterMoney; addLog(window.NE_SUPPORT.bonusMsg(),'event'); } }catch(e){}
   saveGame();
   show('scr-game');
   renderAll();
@@ -7921,8 +8062,8 @@ function openSettings(fromGame) {
   if (ctxSub) {
     const EN = window.NE_LANG === 'en';
     ctxSub.textContent = _fromGame
-      ? ('NARCO EMPIRE v1.2 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
-      : 'NARCO EMPIRE v1.2';
+      ? ('NARCO EMPIRE v1.3 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
+      : 'NARCO EMPIRE v1.3';
   }
   document.getElementById('scr-settings').classList.add('on');
 }
@@ -13460,8 +13601,8 @@ window.applyLangToDOM = function(){
     const fromGame = (typeof _settingsFromGame !== 'undefined') && _settingsFromGame;
     if(ingame) ingame.style.display = fromGame ? '' : 'none';
     if(ctxSub) ctxSub.textContent = fromGame
-      ? ('NARCO EMPIRE v1.2 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
-      : 'NARCO EMPIRE v1.2';
+      ? ('NARCO EMPIRE v1.3 · ' + (EN ? 'IN-GAME' : 'DALAM GAME'))
+      : 'NARCO EMPIRE v1.3';
   }
 };
 
@@ -13631,7 +13772,7 @@ window.addLog = function(msg, type){
     <div class="slot-panel-hdr">
       <div>
         <div class="slot-panel-hdr-t">⚙ <span data-t="s_title">PENGATURAN</span></div>
-        <div class="slot-panel-hdr-sub" id="settings-ctx-sub">NARCO EMPIRE v1.2</div>
+        <div class="slot-panel-hdr-sub" id="settings-ctx-sub">NARCO EMPIRE v1.3</div>
       </div>
       <button class="slot-close-btn" onclick="closeSettings()">✕ <span data-t="close">TUTUP</span></button>
     </div>
@@ -13692,6 +13833,17 @@ window.addLog = function(msg, type){
         <span style="font-size:10px;color:var(--text2);">@Jonz_007</span>
       </div>
     </div>
+    <div class="settings-section" id="ne-sup-settings">
+      <div class="settings-title">💖 <span id="ne-sup-set-title">SUPPORT DEVELOPER</span></div>
+      <a class="settings-row ne-sup-link-row" data-ne-sup-link href="https://sociabuzz.com/jonz_007/support" target="_blank" rel="noopener noreferrer">
+        <div><div class="settings-lbl" id="ne-sup-set-link-lbl">☕ Dukung via Sociabuzz</div><div class="settings-sub" id="ne-sup-set-link-sub">Donasi min. IDR 10.000 → jadi Supporter</div></div>
+        <span style="color:var(--gold);font-size:12px;">↗</span>
+      </a>
+      <div class="settings-row" style="cursor:pointer;" onclick="NE_SUPPORT.openPanel()">
+        <div><div class="settings-lbl" id="ne-sup-set-panel-lbl">💎 Panel Supporter</div><div class="settings-sub" id="ne-sup-set-panel-sub">Benefit, tema &amp; aktivasi kode</div></div>
+        <span style="color:var(--gold);font-size:12px;">›</span>
+      </div>
+    </div>
     <div class="settings-section settings-ingame-section" id="settings-ingame" style="display:none;">
       <div class="settings-title">🎮 <span data-t="s_ingame_title">DALAM GAME</span></div>
       <div class="settings-ingame-btns">
@@ -13718,6 +13870,20 @@ window.addLog = function(msg, type){
   </div>
 </div>
 
+
+<!-- ═══════ SUPPORT / SUPPORTER PANEL ═══════ -->
+<div id="scr-support">
+  <div class="ne-sup-panel">
+    <div class="slot-panel-hdr">
+      <div>
+        <div class="slot-panel-hdr-t">💖 <span id="ne-sup-title">SUPPORT DEVELOPER</span></div>
+        <div class="slot-panel-hdr-sub" id="ne-sup-sub">NARCO EMPIRE · @Jonz_007</div>
+      </div>
+      <button class="slot-close-btn" onclick="NE_SUPPORT.closePanel()">✕ <span id="ne-sup-close">TUTUP</span></button>
+    </div>
+    <div id="ne-sup-body"></div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════════════
      NARCO EMPIRE — AUDIO ENGINE v2.0
@@ -15433,7 +15599,7 @@ window.openSettings=function(fromGame){
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    KONFIGURASI — HANYA EDIT BAGIAN INI
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-const GAME_VERSION      = '1.2.1';
+const GAME_VERSION      = '1.3.0';
 const VERSION_MANIFEST_URL =
   'https://raw.githubusercontent.com/JovanSaputra/Narco-empire/main/version.json';
 /*
@@ -15688,6 +15854,310 @@ window.NarcoVersionCheck = {
 
 })(); // end NarcoVersionCheck
 
+</script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   NARCO EMPIRE — SUPPORTER SYSTEM  (modul aditif)
+   • Link Sociabuzz yang bisa langsung diketuk: menu utama, Setting, Panel Support
+   • Aktivasi Supporter via kode offline (dikirim developer setelah donasi min. IDR 10.000)
+   • Benefit: tema BLACK GOLD · badge 💎 · Starter Pack +$2,500 tiap kartel baru
+   • Status disimpan di localStorage 'narco_supporter' — TIDAK ikut terhapus oleh
+     "Hapus Semua Data Save" dan tidak masuk ke struktur save game (G).
+   • Pola chaining _orig seperti modul lain: applyLangToDOM() dibungkus, bukan diganti.
+═══════════════════════════════════════════════════════════════ */
+(function(){
+'use strict';
+
+/* ── KONFIGURASI ─────────────────────────────────────────── */
+var SUPPORT_URL   = 'https://sociabuzz.com/jonz_007/support';
+var STARTER_MONEY = 2500;
+var K_SUP   = 'narco_supporter';
+var K_THEME = 'narco_sup_theme';
+/* Salt HARUS sama dengan yang ada di supporter-codes.html (generator kode) */
+var CODE_SALT = 'ne-216193e7c7f7fe38d8c3';
+var ALPHA   = '23456789ABCDEFGHJKMNPQRSTVWXYZ';   /* tanpa 0 1 I L O U agar tidak ambigu */
+var PAY_LEN = 8, CHK_LEN = 4;
+
+/* ── TEKS (ID / EN) ──────────────────────────────────────── */
+var TX = {
+  id:{
+    title:'SUPPORT DEVELOPER', sub:'NARCO EMPIRE · @Jonz_007', close:'TUTUP',
+    intro:'Narco Empire dibuat dan dikembangkan sendiri oleh @Jonz_007. Dukunganmu membuat update dan konten baru terus lahir. Terima kasih! 🙏',
+    cta:'☕ DUKUNG DI SOCIABUZZ',
+    min:'Donasi minimal <b>IDR 10.000</b> untuk jadi Supporter',
+    how:'CARA JADI SUPPORTER',
+    s1:'Donasi minimal IDR 10.000 lewat tombol di atas.',
+    s2:'Tulis nama / kontak (mis. Discord atau email) di pesan donasi.',
+    s3:'Developer mengirimkan kode supporter kepadamu.',
+    s4:'Masukkan kode di bawah, lalu tekan AKTIFKAN.',
+    codeT:'KODE SUPPORTER', ph:'NE-XXXX-XXXX-XXXX', act:'AKTIFKAN',
+    benT:'BENEFIT SUPPORTER',
+    b1t:'Tema Eksklusif BLACK GOLD', b1d:'Tampilan hitam-emas premium di seluruh game. Bisa dinyalakan atau dimatikan kapan saja.',
+    b2t:'Badge Supporter', b2d:'Lencana 💎 SUPPORTER di menu utama dan HUD permainan.',
+    b3t:'Starter Pack +$2,500', b3d:'Bonus modal awal setiap kali kamu memulai kartel baru.',
+    actT:'💎 SUPPORTER AKTIF', actS:'Terima kasih sudah mendukung Narco Empire! Semua benefit di bawah sudah aktif.', actC:'Kode',
+    themeL:'🎨 Tema BLACK GOLD', themeS:'Tampilan eksklusif supporter',
+    m_empty:'Masukkan kode supporter dulu.',
+    m_bad:'Kode tidak valid. Periksa lagi penulisannya.',
+    m_lock:'Terlalu banyak percobaan. Coba lagi dalam {n} detik.',
+    m_store:'Gagal menyimpan. Penyimpanan browser mungkin dinonaktifkan.',
+    m_ok:'💎 Supporter aktif! Terima kasih!',
+    sLink:'☕ Dukung via Sociabuzz', sLinkS:'Donasi min. IDR 10.000 → jadi Supporter',
+    sPanel:'💎 Panel Supporter', sPanelOff:'Benefit, tema & aktivasi kode', sPanelOn:'Supporter aktif ✓ — atur tema',
+    splash:'💖 SUPPORT', chip:'💎 SUPPORTER', hud:'Supporter',
+    bonus:'💎 Bonus Supporter: +{m} modal awal. Terima kasih!'
+  },
+  en:{
+    title:'SUPPORT THE DEVELOPER', sub:'NARCO EMPIRE · @Jonz_007', close:'CLOSE',
+    intro:'Narco Empire is built and maintained solo by @Jonz_007. Your support keeps updates and new content coming. Thank you! 🙏',
+    cta:'☕ SUPPORT ON SOCIABUZZ',
+    min:'Donate at least <b>IDR 10,000</b> to become a Supporter',
+    how:'HOW TO BECOME A SUPPORTER',
+    s1:'Donate at least IDR 10,000 using the button above.',
+    s2:'Leave your name / contact (e.g. Discord or email) in the donation message.',
+    s3:'The developer sends you a supporter code.',
+    s4:'Enter the code below, then tap ACTIVATE.',
+    codeT:'SUPPORTER CODE', ph:'NE-XXXX-XXXX-XXXX', act:'ACTIVATE',
+    benT:'SUPPORTER BENEFITS',
+    b1t:'Exclusive BLACK GOLD Theme', b1d:'A premium black-and-gold look across the whole game. Switch it on or off anytime.',
+    b2t:'Supporter Badge', b2d:'A 💎 SUPPORTER badge on the main menu and in-game HUD.',
+    b3t:'Starter Pack +$2,500', b3d:'Bonus starting cash every time you start a new cartel.',
+    actT:'💎 SUPPORTER ACTIVE', actS:'Thank you for supporting Narco Empire! All benefits below are active.', actC:'Code',
+    themeL:'🎨 BLACK GOLD Theme', themeS:'Exclusive supporter look',
+    m_empty:'Please enter your supporter code first.',
+    m_bad:'Invalid code. Please check and try again.',
+    m_lock:'Too many attempts. Try again in {n} seconds.',
+    m_store:'Could not save. Browser storage may be disabled.',
+    m_ok:'💎 Supporter activated! Thank you!',
+    sLink:'☕ Support via Sociabuzz', sLinkS:'Donate min. IDR 10,000 → become a Supporter',
+    sPanel:'💎 Supporter Panel', sPanelOff:'Benefits, theme & code activation', sPanelOn:'Supporter active ✓ — manage theme',
+    splash:'💖 SUPPORT', chip:'💎 SUPPORTER', hud:'Supporter',
+    bonus:'💎 Supporter bonus: +{m} starting cash. Thank you!'
+  }
+};
+function lang(){ return window.NE_LANG === 'en' ? 'en' : 'id'; }
+function T(k){ var d = TX[lang()]; return (d && d[k] !== undefined) ? d[k] : (TX.id[k] || k); }
+function $(id){ return document.getElementById(id); }
+
+/* ── STORAGE (aman bila localStorage diblokir) ───────────── */
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ return false; } }
+
+/* ── VALIDASI KODE (offline, checksum berkunci salt) ─────── */
+function h53(str, seed){
+  var h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed, ch;
+  for(var i=0;i<str.length;i++){
+    ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
+  return 4294967296 * (2097151 & h2) + (h1>>>0);
+}
+function checksum(payload){
+  var base = ALPHA.length;
+  var n = h53(CODE_SALT + '|' + payload, 11) % Math.pow(base, CHK_LEN);
+  var out = '';
+  for(var i=0;i<CHK_LEN;i++){ out = ALPHA.charAt(n % base) + out; n = Math.floor(n / base); }
+  return out;
+}
+/* Terima "NE-XXXX-XXXX-XXXX", tanpa strip, huruf kecil, spasi → kembalikan kode baku atau null */
+function parseCode(raw){
+  var s = String(raw == null ? '' : raw).toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(s.length === PAY_LEN + CHK_LEN + 2 && s.indexOf('NE') === 0) s = s.slice(2);
+  if(s.length !== PAY_LEN + CHK_LEN) return null;
+  for(var i=0;i<s.length;i++){ if(ALPHA.indexOf(s.charAt(i)) < 0) return null; }
+  if(checksum(s.slice(0,PAY_LEN)) !== s.slice(PAY_LEN)) return null;
+  return 'NE-' + s.slice(0,4) + '-' + s.slice(4,8) + '-' + s.slice(8,12);
+}
+
+/* ── STATE ───────────────────────────────────────────────── */
+var _code = null, _fails = 0, _lockUntil = 0;
+function loadState(){
+  _code = null;
+  var raw = lsGet(K_SUP);
+  if(!raw) return;
+  try{ var o = JSON.parse(raw); var c = o && parseCode(o.c); if(c) _code = c; }catch(e){}
+}
+function isActive(){ return !!_code; }
+function themeWanted(){ return lsGet(K_THEME) !== '0'; }
+
+function redeem(raw){
+  var now = Date.now();
+  if(now < _lockUntil) return {ok:false, reason:'lock', secs:Math.ceil((_lockUntil-now)/1000)};
+  var c = parseCode(raw);
+  if(!c){
+    _fails++;
+    if(_fails >= 5){ _fails = 0; _lockUntil = now + 30000; }
+    return {ok:false, reason:'bad'};
+  }
+  _fails = 0;
+  if(!lsSet(K_SUP, JSON.stringify({v:1, c:c, t:now}))) return {ok:false, reason:'store'};
+  _code = c;
+  if(lsGet(K_THEME) === null) lsSet(K_THEME,'1');
+  return {ok:true, code:c};
+}
+
+/* ── TEMA ────────────────────────────────────────────────── */
+function applyTheme(){
+  var on = isActive() && themeWanted();
+  document.documentElement.classList.toggle('ne-sup', on);
+  var m = document.querySelector('meta[name="theme-color"]');
+  if(m) m.setAttribute('content', on ? '#0b0a10' : '#8a0818');
+}
+function toggleTheme(){
+  lsSet(K_THEME, themeWanted() ? '0' : '1');
+  applyTheme();
+  render();
+}
+
+/* ── BADGE & TEKS STATIS ─────────────────────────────────── */
+function setText(id, txt){ var el = $(id); if(el) el.textContent = txt; }
+function refreshBadges(){
+  var a = isActive();
+  var chip = $('ne-sup-chip'); if(chip) chip.classList.toggle('on', a);
+  var hud = $('ne-sup-hud'); if(hud) hud.style.display = a ? '' : 'none';
+  setText('ne-sup-set-panel-sub', a ? T('sPanelOn') : T('sPanelOff'));
+}
+function applyText(){
+  setText('ne-sup-chip', T('chip'));
+  setText('ne-sup-splash-btn', T('splash'));
+  var hud = $('ne-sup-hud'); if(hud) hud.title = T('hud');
+  setText('ne-sup-set-title', T('title'));
+  setText('ne-sup-set-link-lbl', T('sLink'));
+  setText('ne-sup-set-link-sub', T('sLinkS'));
+  setText('ne-sup-set-panel-lbl', T('sPanel'));
+  setText('ne-sup-title', T('title'));
+  setText('ne-sup-sub', T('sub'));
+  setText('ne-sup-close', T('close'));
+  refreshBadges();
+}
+
+/* ── PANEL ───────────────────────────────────────────────── */
+function panelOpen(){ var el = $('scr-support'); return !!(el && el.classList.contains('on')); }
+function click(){ try{ if(typeof NarcoAudio !== 'undefined' && NarcoAudio.click) NarcoAudio.click(); }catch(e){} }
+
+function benefitRows(active){
+  var ok = active ? '<span class="ne-sup-ben-ok">✓</span>' : '';
+  function row(ic,t,d){
+    return '<div class="ne-sup-ben"><div class="ne-sup-ben-ic">'+ic+'</div>'
+         + '<div><div class="ne-sup-ben-t">'+T(t)+'</div><div class="ne-sup-ben-d">'+T(d)+'</div></div>'+ok+'</div>';
+  }
+  return row('🎨','b1t','b1d') + row('💎','b2t','b2d') + row('💰','b3t','b3d');
+}
+
+function render(){
+  var body = $('ne-sup-body'); if(!body) return;
+  var inp = $('ne-sup-input'), prev = inp ? inp.value : '';
+  var active = isActive(), h = '';
+
+  h += '<div class="ne-sup-hero">'
+     +   '<div class="ne-sup-hero-ic">💖</div>'
+     +   '<p>'+T('intro')+'</p>'
+     +   '<a class="ne-sup-cta" data-ne-sup-link href="'+SUPPORT_URL+'" target="_blank" rel="noopener noreferrer">'+T('cta')+'</a>'
+     +   '<div class="ne-sup-min">'+T('min')+'</div>'
+     + '</div>';
+
+  if(active){
+    h += '<div class="ne-sup-active">'
+       +   '<div class="ne-sup-active-t">'+T('actT')+'</div>'
+       +   '<div class="ne-sup-active-s">'+T('actS')+'</div>'
+       +   '<div class="ne-sup-active-c">'+T('actC')+': '+_code.slice(0,7)+'-••••-••••</div>'
+       + '</div>'
+       + '<div class="ne-sup-sec">'
+       +   '<div class="settings-row">'
+       +     '<div><div class="settings-lbl">'+T('themeL')+'</div><div class="settings-sub">'+T('themeS')+'</div></div>'
+       +     '<button class="toggle-btn'+(themeWanted()?' on':'')+'" id="ne-sup-theme-toggle" onclick="NE_SUPPORT.toggleTheme()"></button>'
+       +   '</div>'
+       + '</div>';
+  } else {
+    h += '<div class="ne-sup-sec">'
+       +   '<div class="ne-sup-sec-t">'+T('how')+'</div>'
+       +   '<div class="ne-sup-step"><b>1</b><span>'+T('s1')+'</span></div>'
+       +   '<div class="ne-sup-step"><b>2</b><span>'+T('s2')+'</span></div>'
+       +   '<div class="ne-sup-step"><b>3</b><span>'+T('s3')+'</span></div>'
+       +   '<div class="ne-sup-step"><b>4</b><span>'+T('s4')+'</span></div>'
+       + '</div>'
+       + '<div class="ne-sup-sec">'
+       +   '<div class="ne-sup-sec-t">'+T('codeT')+'</div>'
+       +   '<div class="ne-sup-code-row">'
+       +     '<input class="ne-sup-input" id="ne-sup-input" type="text" maxlength="24" placeholder="'+T('ph')+'"'
+       +       ' autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false"'
+       +       ' onkeydown="if(event.key===\'Enter\'){NE_SUPPORT.submit();}">'
+       +     '<button class="ne-sup-act" onclick="NE_SUPPORT.submit()">'+T('act')+'</button>'
+       +   '</div>'
+       +   '<div class="ne-sup-msg" id="ne-sup-msg"></div>'
+       + '</div>';
+  }
+
+  h += '<div class="ne-sup-sec"><div class="ne-sup-sec-t">'+T('benT')+'</div>'+benefitRows(active)+'</div>';
+  body.innerHTML = h;
+
+  if(prev && !active){ var i2 = $('ne-sup-input'); if(i2) i2.value = prev; }
+}
+
+function setMsg(txt, cls){
+  var el = $('ne-sup-msg'); if(!el) return;
+  el.textContent = txt; el.className = 'ne-sup-msg' + (cls ? ' '+cls : '');
+}
+function submit(){
+  var inp = $('ne-sup-input'); if(!inp) return;
+  var v = inp.value.trim();
+  if(!v){ setMsg(T('m_empty'),'bad'); return; }
+  click();
+  var r = redeem(v);
+  if(r.ok){
+    applyTheme(); refreshBadges(); render();
+    if(typeof toast === 'function') toast(T('m_ok'),'good');
+  } else if(r.reason === 'lock'){
+    setMsg(T('m_lock').replace('{n}', r.secs),'bad');
+  } else if(r.reason === 'store'){
+    setMsg(T('m_store'),'bad');
+  } else {
+    setMsg(T('m_bad'),'bad');
+  }
+}
+function openPanel(){
+  click(); render();
+  var el = $('scr-support'); if(!el) return;
+  el.classList.add('on');
+  var p = el.querySelector('.ne-sup-panel'); if(p) p.scrollTop = 0;
+}
+function closePanel(){ var el = $('scr-support'); if(el) el.classList.remove('on'); }
+
+/* ── API PUBLIK ──────────────────────────────────────────── */
+window.NE_SUPPORT = Object.freeze({
+  url: SUPPORT_URL,
+  starterMoney: STARTER_MONEY,
+  isActive: isActive,
+  openPanel: openPanel,
+  closePanel: closePanel,
+  submit: submit,
+  toggleTheme: toggleTheme,
+  bonusMsg: function(){ return T('bonus').replace('{m}', '$' + STARTER_MONEY.toLocaleString('en-US')); }
+});
+
+/* ── HOOK BAHASA (chaining, tidak mengganti fungsi asli) ─── */
+(function(){
+  var _orig = window.applyLangToDOM;
+  window.applyLangToDOM = function(){
+    if(typeof _orig === 'function') _orig.apply(this, arguments);
+    try{ applyText(); if(panelOpen()) render(); }catch(e){}
+  };
+})();
+
+/* ── INIT ────────────────────────────────────────────────── */
+(function(){
+  loadState();
+  applyTheme();
+  document.querySelectorAll('a[data-ne-sup-link]').forEach(function(a){ a.href = SUPPORT_URL; });
+  var sp = $('ne-sup-splash-btn'); if(sp) sp.addEventListener('click', openPanel);
+  applyText();
+})();
+
+})();
 </script>
 
 <!-- ═══ AUTO-RELOAD UPDATE OVERLAY — injected by NarcoVersionCheck ═══ -->

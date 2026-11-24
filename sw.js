@@ -1,10 +1,10 @@
-/* NARCO EMPIRE — Service Worker v1.2.0 */
-const CACHE = 'narco-empire-v1.2.1';
+/* NARCO EMPIRE — Service Worker v1.3.0 */
+const CACHE = 'narco-empire-v1.3.0';
 const PRECACHE = ['./index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(PRECACHE)).then(() => self.skipWaiting())
+    caches.open(CACHE).then(c => c.addAll(PRECACHE.map(u => new Request(u, {cache: 'reload'})))).then(() => self.skipWaiting())
   );
 });
 
@@ -19,7 +19,7 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const url = e.request.url;
   /* Jangan cache Firebase / Google APIs */
-  if(url.includes('googleapis.com') || url.includes('firebase')){
+  if(url.includes('googleapis.com') || url.includes('firebase') || url.includes('raw.githubusercontent.com')){
     e.respondWith(fetch(e.request).catch(() => new Response('',{status:503})));
     return;
   }
