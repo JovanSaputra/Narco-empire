@@ -1,6 +1,6 @@
 {
-  "version": "1.3.1",
-  "changelog": "v1.3.1 — Perbaikan internal (proteksi source code), tidak ada perubahan fitur",
+  "version": "1.3.2",
+  "changelog": "v1.3.2 — Perbaikan bug: popup macet saat menang menyerang wilayah kosong (tanpa rival)",
   "countdown": 5,
   "mandatory": false
 }
