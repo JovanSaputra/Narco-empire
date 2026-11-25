@@ -1,6 +1,6 @@
 <div align="center">
 
-# 💀 NARCO EMPIRE v1.3.2
+# 💀 NARCO EMPIRE v1.3.3
 LAST UPDATE : 25 Nov 2026
 
 **Simulation Game • Fiction Only**
