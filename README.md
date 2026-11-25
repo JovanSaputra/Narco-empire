@@ -11,6 +11,10 @@ LAST UPDATE : 25 Nov 2026
 
 ---
 
+**❗❗Check your game version settings. If the game version has not been updated, please clear the cache first.❗❗**
+
+**✅It is recommended to install the game from the main menu to make it easier to clear the cache✅**
+
 > *Build your empire. Control the streets. Trust no one.*
 
 **© 2026 • All Rights Reserved**
