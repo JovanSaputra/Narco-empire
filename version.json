@@ -1,6 +1,6 @@
 {
-  "version": "1.3.3",
-  "changelog": "v1.3.3 — Perbaikan bug kritis: gudang properti (Gudang Tersembunyi/Kompleks/Bunker/Dermaga) kini terdeteksi & stok bisa diambil; popup event tidak lagi bertumpuk",
+  "version": "1.3.4",
+  "changelog": "v1.3.4 — Perbaikan kritis: update otomatis sering gagal terdeteksi/diterapkan (cache CDN GitHub)",
   "countdown": 5,
   "mandatory": false
 }
